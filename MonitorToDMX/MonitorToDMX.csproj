@@ -13,8 +13,10 @@
   <ItemGroup>
     <PackageReference Include="Haukcode.Network" Version="1.0.22" />
     <PackageReference Include="HdrHistogram" Version="2.5.0" />
+    <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="System.Drawing.Common" Version="9.0.5" />
     <PackageReference Include="System.Reactive" Version="6.0.1" />
+    <PackageReference Include="Terminal.Gui" Version="2.0.0-develop.*" />
     <Reference Include="DMX.NET">
       <HintPath>$(ProjectDir)DMX.NET.dll</HintPath>
     </Reference>
