@@ -7,6 +7,9 @@
       "RelativeMoniker": "D:0:0:{5FD8F6CB-4792-4169-A76C-28F90758F062}|MonitorToDMX.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\zacgr\\AppData\\Local\\Temp\\.vsdbgsrc\\326c60a033293f7c8a2d389fe21d9c0e794abbd90fe29a8de49b02af11342113\\OpenDmxController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5FD8F6CB-4792-4169-A76C-28F90758F062}|MonitorToDMX.csproj|d:\\monitortodmx\\monitortodmx\\monitortodmx.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{5FD8F6CB-4792-4169-A76C-28F90758F062}|MonitorToDMX.csproj|solutionrelative:monitortodmx.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     }
@@ -18,7 +21,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -31,6 +34,17 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "OpenDmxController.cs",
+              "DocumentMoniker": "C:\\Users\\zacgr\\AppData\\Local\\Temp\\.vsdbgsrc\\326c60a033293f7c8a2d389fe21d9c0e794abbd90fe29a8de49b02af11342113\\OpenDmxController.cs",
+              "ToolTip": "C:\\Users\\zacgr\\AppData\\Local\\Temp\\.vsdbgsrc\\326c60a033293f7c8a2d389fe21d9c0e794abbd90fe29a8de49b02af11342113\\OpenDmxController.cs [Read Only]",
+              "ViewState": "AgIAALsAAAAAAAAAAADwv8cAAAABAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-14T15:13:27.354Z",
+              "EditorCaption": " [Read Only]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "MonitorToDMX.csproj",
               "DocumentMoniker": "D:\\MonitorToDMX\\MonitorToDMX\\MonitorToDMX.csproj",
               "RelativeDocumentMoniker": "MonitorToDMX.csproj",
@@ -38,7 +52,8 @@
               "RelativeToolTip": "MonitorToDMX.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-05-15T01:38:10.363Z"
+              "WhenOpened": "2025-05-15T01:38:10.363Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -48,7 +63,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "D:\\MonitorToDMX\\MonitorToDMX\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAMoAAAAAAAAAAAAQwNUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAFAAAAAAAAAAAIA1wCUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-14T20:51:59.875Z",
               "EditorCaption": ""

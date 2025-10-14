@@ -1,18 +1,12 @@
 ﻿using Dmx.Net.Common;
 using Dmx.Net.Controllers;
-using NAudio;
+using System.Diagnostics;
 using System.Drawing.Imaging;
-using System.Text;
+using System.Reactive.Joins;
 using Terminal.Gui;
 using Terminal.Gui.TextValidateProviders;
 using Application = Terminal.Gui.Application;
-using Button = Terminal.Gui.Button;
-using CheckBox = Terminal.Gui.CheckBox;
-using Color = Terminal.Gui.Color;
 using Label = Terminal.Gui.Label;
-using MessageBox = Terminal.Gui.MessageBox;
-using Padding = Terminal.Gui.Padding;
-using View = Terminal.Gui.View;
 
 // Copyright (c) 2025 Zac Grey
 // Licensed under the MIT License. See LICENSE file in the project root for license information.
@@ -20,39 +14,68 @@ using View = Terminal.Gui.View;
 class Program
 {
     private static DmxTimer dmxTimer = new DmxTimer();
-    private static OpenDmxController dmxController = new OpenDmxController(dmxTimer);
+    private static IController dmxController = ControllerManager.RegisterController<OpenDmxController>(1, dmxTimer);
     private static int partitionAmount = 4;
+    public static CancellationTokenSource dmxCancel;
+    public static MainWindow mainWindow;
+    public static int sens = 0; // sensitivity threshold (0-255)
 
     static void Main(string[] args)
     {
-        Application.Run<ExampleWindow>().Dispose();
+        dmxController.Open(0);
+        dmxTimer.Start();
+        mainWindow = Application.Run<MainWindow>();
+        Application.Shutdown();
+    }
 
-        if (dmxController.IsOpen == false)
+    public static void WriteGlobalColour(byte r, byte g, byte b)
+    {
+        dmxTimer.Start();
+        byte[] pattern = [255, r, g, b, 0, 0, 0];
+        byte[] result = Enumerable.Repeat(pattern, 4).SelectMany(x => x).ToArray();
+        dmxController.SetChannelRange(1, result);
+    }
+
+    public static void StartDmxLoop()
+    {
+        if (dmxCancel != null)
         {
-            try
+            return; // Already running
+        }
+
+        dmxCancel = new CancellationTokenSource();
+
+        Task.Run(async () =>
+        {
+            var token = dmxCancel.Token;
+
+            if (!dmxController.IsOpen)
             {
                 dmxController.Open(0);
             }
-            catch (Exception e)
-            {
-                // try again later
-            }
-        }
 
-        dmxTimer.Start();
-        // To see this output on the screen it must be done after shutdown,
-        // which restores the previous screen.
-        // This will send DMX data from channel 1, and then all parameters afterwards--
-        // -- will be the DMX value for each channel in order afterwards.
-        while (true)
-        {
-            Bitmap screenshot = CaptureScreen();
-            byte[] averages = ComputeAverages(screenshot).ToArray();
-            dmxController.SetChannelRange(1, averages);
-            Console.WriteLine("Writing: " + AverageToString(averages));
-            //Thread.Sleep(30);
-        }
-        Application.Shutdown();
+            dmxTimer.Start();
+
+            while (!token.IsCancellationRequested)
+            {
+                using (Bitmap screenshot = CaptureScreen())
+                {
+                    byte[] averages = ComputeAverages(screenshot).ToArray();
+                    dmxController.SetChannelRange(1, averages);
+                    //Console.WriteLine("Writing: " + AverageToString(averages));
+                }
+                Debug.Write(MainWindow.DelayText);
+                await Task.Delay(int.Parse(MainWindow.DelayText), token);
+            }
+        }, dmxCancel.Token);
+    }
+    public static void StopDmxLoop()
+    {
+        dmxCancel?.Cancel();
+        dmxCancel = null;
+        dmxTimer.Stop();
+        dmxController.SetChannelRange(1, new byte[511]); // set all channels to 0
+        dmxController.WriteBuffer().Wait(); // flush immediately
     }
 
     static string AverageToString(byte[] averages)
@@ -129,7 +152,7 @@ class Program
 
             partBmp.UnlockBits(bmpData);
 
-            if ((sumR + sumG + sumB) / pixelCount <= 0)
+            if ((sumR + sumG + sumB) / pixelCount <= sens)
             {
                 averagesList.Add(0); averagesList.Add(0); averagesList.Add(0);
                 averagesList.Add(0); averagesList.Add(0); averagesList.Add(0);
@@ -151,10 +174,10 @@ class Program
     }
 }
 
-public class ExampleWindow : Window
+public class MainWindow : Window
 {
-
-    public ExampleWindow()
+    public static string DelayText { get; set; }
+    public MainWindow()
     {
         #region main window
         Title = $"MonitorToDMX ({Application.QuitKey} to quit)";
@@ -164,6 +187,20 @@ public class ExampleWindow : Window
             RadioLabels = ["Manual Colour Mode", "Monitor Colour Mode"],
         };
         Add(selectRadioBtn);
+
+        selectRadioBtn.SelectedItemChanged += (s, e) =>
+        {
+            if (e.SelectedItem == 0)
+            {
+                // Manual Colour Mode selected
+                Program.StopDmxLoop(); // stop background loop
+            }
+            else if (e.SelectedItem == 1)
+            {
+                // Monitor Colour Mode selected
+                Program.StartDmxLoop(); // start background loop
+            }
+        };
 
         var licenseLbl = new Label()
         {
@@ -189,6 +226,13 @@ public class ExampleWindow : Window
             Style = new ColorPickerStyle { ColorModel = ColorModel.RGB, ShowColorName = true, ShowTextFields = true },
         };
         manualRGB.ApplyStyleChanges();
+
+        manualRGB.ColorChanged += (s, e) =>
+        {
+            var color = e.CurrentValue;
+            Program.WriteGlobalColour(color.R, color.G, color.B);
+        };
+
         manualWindow.Add(manualRGB);
 
         Add(manualWindow);
@@ -218,6 +262,12 @@ public class ExampleWindow : Window
             Provider = new TextRegexProvider(@"^(?:0|[1-9][0-9]{0,3}|10000)$"), // regex for 0-10000
             Text = "0",
             Width = Dim.Width(delayTxtWindow),
+        };
+
+        DelayText = "0";
+        delayTxt.KeyDownNotHandled += (s, e) =>
+        {
+            DelayText = delayTxt.Text;
         };
         delayTxtWindow.Add(delayTxt);
 
