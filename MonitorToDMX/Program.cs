@@ -1,14 +1,32 @@
 ﻿using Dmx.Net.Common;
 using Dmx.Net.Controllers;
+using NAudio;
 using System.Drawing.Imaging;
+using System.Text;
+using Terminal.Gui;
+using Terminal.Gui.TextValidateProviders;
+using Application = Terminal.Gui.Application;
+using Button = Terminal.Gui.Button;
+using CheckBox = Terminal.Gui.CheckBox;
+using Color = Terminal.Gui.Color;
+using Label = Terminal.Gui.Label;
+using MessageBox = Terminal.Gui.MessageBox;
+using Padding = Terminal.Gui.Padding;
+using View = Terminal.Gui.View;
+
+// Copyright (c) 2025 Zac Grey
+// Licensed under the MIT License. See LICENSE file in the project root for license information.
 
 class Program
 {
     private static DmxTimer dmxTimer = new DmxTimer();
     private static OpenDmxController dmxController = new OpenDmxController(dmxTimer);
     private static int partitionAmount = 4;
+
     static void Main(string[] args)
     {
+        Application.Run<ExampleWindow>().Dispose();
+
         if (dmxController.IsOpen == false)
         {
             try
@@ -22,7 +40,8 @@ class Program
         }
 
         dmxTimer.Start();
-
+        // To see this output on the screen it must be done after shutdown,
+        // which restores the previous screen.
         // This will send DMX data from channel 1, and then all parameters afterwards--
         // -- will be the DMX value for each channel in order afterwards.
         while (true)
@@ -33,7 +52,9 @@ class Program
             Console.WriteLine("Writing: " + AverageToString(averages));
             //Thread.Sleep(30);
         }
+        Application.Shutdown();
     }
+
     static string AverageToString(byte[] averages)
     {
         string str = String.Empty;
@@ -43,6 +64,7 @@ class Program
         }
         return str;
     }
+
     static Bitmap CaptureScreen()
     {
         var bounds = Screen.PrimaryScreen.Bounds;
@@ -55,6 +77,7 @@ class Program
         }
         return bmpScreenshot;
     }
+
     static List<byte> ComputeAverages(Bitmap bmp)
     {
         int partWidth = bmp.Width / 2;
@@ -62,12 +85,12 @@ class Program
 
         // Map partitions according to your light setup
         List<Rectangle> regions = new List<Rectangle>
-    {
-        new Rectangle(partWidth, 0, partWidth, partHeight),
-        new Rectangle(partWidth, partHeight, partWidth, partHeight),
-        new Rectangle(0, partHeight, partWidth, partHeight),
-        new Rectangle(0, 0, partWidth, partHeight),
-    };
+        {
+            new Rectangle(partWidth, 0, partWidth, partHeight),
+            new Rectangle(partWidth, partHeight, partWidth, partHeight),
+            new Rectangle(0, partHeight, partWidth, partHeight),
+            new Rectangle(0, 0, partWidth, partHeight),
+        };
 
         List<byte> averagesList = new List<byte>();
 
@@ -120,11 +143,85 @@ class Program
                 averagesList.Add((byte)(sumG / pixelCount));
                 averagesList.Add((byte)(sumB / pixelCount));
                 averagesList.Add(0); averagesList.Add(0); averagesList.Add(0);
-            } 
+            }
             partBmp.Dispose();
         }
 
         return averagesList;
     }
+}
 
+public class ExampleWindow : Window
+{
+
+    public ExampleWindow()
+    {
+        #region main window
+        Title = $"MonitorToDMX ({Application.QuitKey} to quit)";
+
+        var selectRadioBtn = new RadioGroup()
+        {
+            RadioLabels = ["Manual Colour Mode", "Monitor Colour Mode"],
+        };
+        Add(selectRadioBtn);
+
+        var licenseLbl = new Label()
+        {
+            X = Pos.AnchorEnd(),
+            Y = Pos.AnchorEnd(),
+            Text = "Copyright © 2025 Zac Grey"
+        };
+        Add(licenseLbl);
+        #endregion
+
+        #region manual window
+
+        var manualWindow = new Window()
+        {
+            Y = Pos.Bottom(selectRadioBtn) + 1,
+            Title = "manual controls",
+            Width = Dim.Auto(),
+        };
+
+        var manualRGB = new ColorPicker()
+        {
+            Y = Pos.Align(Alignment.Start),
+            Style = new ColorPickerStyle { ColorModel = ColorModel.RGB, ShowColorName = true, ShowTextFields = true },
+        };
+        manualRGB.ApplyStyleChanges();
+        manualWindow.Add(manualRGB);
+
+        Add(manualWindow);
+        #endregion
+
+        #region monitor window
+        var monitorWindow = new Window()
+        {
+            Y = Pos.Bottom(selectRadioBtn) + 1,
+            X = Pos.Right(manualWindow) + 1,
+            Title = "monitor settings",
+            Width = Dim.Auto(),
+        };
+
+        var delayTxtWindow = new Window()
+        {
+            Y = Pos.Align(Alignment.Start),
+            Title = "Delay (0-10000 ms)",
+            Width = Dim.Absolute(25),
+            Height = Dim.Absolute(3),
+        };
+        monitorWindow.Add(delayTxtWindow);
+
+        var delayTxt = new TextValidateField()
+        {
+            Y = Pos.Align(Alignment.Start),
+            Provider = new TextRegexProvider(@"^(?:0|[1-9][0-9]{0,3}|10000)$"), // regex for 0-10000
+            Text = "0",
+            Width = Dim.Width(delayTxtWindow),
+        };
+        delayTxtWindow.Add(delayTxt);
+
+        Add(monitorWindow);
+        #endregion
+    }
 }
