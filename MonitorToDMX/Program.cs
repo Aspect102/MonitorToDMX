@@ -1,8 +1,7 @@
 ﻿using Dmx.Net.Common;
 using Dmx.Net.Controllers;
-using System.Diagnostics;
+using System.Collections.ObjectModel;
 using System.Drawing.Imaging;
-using System.Reactive.Joins;
 using Terminal.Gui;
 using Terminal.Gui.TextValidateProviders;
 using Application = Terminal.Gui.Application;
@@ -62,9 +61,20 @@ class Program
                 {
                     byte[] averages = ComputeAverages(screenshot).ToArray();
                     dmxController.SetChannelRange(1, averages);
-                    //Console.WriteLine("Writing: " + AverageToString(averages));
+                    Application.Invoke(() =>
+                    {
+                        MainWindow.dataTbl.Add(new DMXTableEntry(DateTime.Now, AverageToString(averages)));
+
+                        var columns = new Dictionary<string, Func<DMXTableEntry, object>>
+                        {
+                            { "Timestamp", d => d.Timestamp },
+                            { "Data", d => d.Data }
+                        };
+
+                        MainWindow.outputTbl.Table = new EnumerableTableSource<DMXTableEntry>(MainWindow.dataTbl, columns);
+                        MainWindow.outputTbl.Update(); // refreshes the view
+                    });
                 }
-                Debug.Write(MainWindow.DelayText);
                 await Task.Delay(int.Parse(MainWindow.DelayText), token);
             }
         }, dmxCancel.Token);
@@ -177,6 +187,10 @@ class Program
 public class MainWindow : Window
 {
     public static string DelayText { get; set; }
+    public static TableView outputTbl { get; set; }
+
+    public static ObservableCollection<DMXTableEntry> dataTbl = new ObservableCollection<DMXTableEntry>();
+
     public MainWindow()
     {
         #region main window
@@ -271,7 +285,45 @@ public class MainWindow : Window
         };
         delayTxtWindow.Add(delayTxt);
 
+        var outputWindow = new Window()
+        {
+            Y = Pos.Align(Alignment.Start),
+            Title = "Raw Output",
+            Width = Dim.Absolute(50),
+            Height = Dim.Fill(),
+        };
+        monitorWindow.Add(outputWindow);
+
+        var columns = new Dictionary<string, Func<DMXTableEntry, object>>
+        {
+            { "Timestamp", d => d.Timestamp },
+            { "Data", d => d.Data},
+        };
+        var table = new EnumerableTableSource<DMXTableEntry>(dataTbl, columns);
+
+        outputTbl = new TableView()
+        {
+            Y = Pos.Align(Alignment.Start),
+            Width = Dim.Fill(),
+            Height = Dim.Fill(),
+            Table = table,
+        };
+        outputWindow.Add(outputTbl);
+
         Add(monitorWindow);
+
+
         #endregion
+    }
+}
+public class DMXTableEntry
+{
+    public DateTime Timestamp { get; set; }
+    public string Data { get; set; }
+
+    public DMXTableEntry(DateTime timestamp, string data)
+    {
+        Timestamp = timestamp;
+        Data = data;
     }
 }
