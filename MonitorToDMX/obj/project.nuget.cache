@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zf8CTQ9OtEw=",
+  "dgSpecHash": "An1rUkGlPAk=",
   "success": true,
-  "projectFilePath": "D:\\ALTMonitorToDMX\\MonitorToDMX\\MonitorToDMX.csproj",
+  "projectFilePath": "C:\\Users\\zacgr\\Documents\\MonitorToDMX\\MonitorToDMX\\MonitorToDMX.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\zacgr\\.nuget\\packages\\colorhelper\\1.8.1\\colorhelper.1.8.1.nupkg.sha512",
     "C:\\Users\\zacgr\\.nuget\\packages\\haukcode.network\\1.0.22\\haukcode.network.1.0.22.nupkg.sha512",
