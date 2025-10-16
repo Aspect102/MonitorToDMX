@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\MonitorToDMX\\MonitorToDMX\\MonitorToDMX.csproj": {}
+    "D:\\ALTMonitorToDMX\\MonitorToDMX\\MonitorToDMX.csproj": {}
   },
   "projects": {
-    "D:\\MonitorToDMX\\MonitorToDMX\\MonitorToDMX.csproj": {
+    "D:\\ALTMonitorToDMX\\MonitorToDMX\\MonitorToDMX.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\MonitorToDMX\\MonitorToDMX\\MonitorToDMX.csproj",
+        "projectUniqueName": "D:\\ALTMonitorToDMX\\MonitorToDMX\\MonitorToDMX.csproj",
         "projectName": "MonitorToDMX",
-        "projectPath": "D:\\MonitorToDMX\\MonitorToDMX\\MonitorToDMX.csproj",
+        "projectPath": "D:\\ALTMonitorToDMX\\MonitorToDMX\\MonitorToDMX.csproj",
         "packagesPath": "C:\\Users\\zacgr\\.nuget\\packages\\",
-        "outputPath": "D:\\MonitorToDMX\\MonitorToDMX\\obj\\",
+        "outputPath": "D:\\ALTMonitorToDMX\\MonitorToDMX\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
