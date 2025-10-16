@@ -1,17 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\ALTMonitorToDMX\\MonitorToDMX\\",
+  "WorkspaceRootPath": "C:\\Users\\zacgr\\Documents\\MonitorToDMX\\MonitorToDMX\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5FD8F6CB-4792-4169-A76C-28F90758F062}|MonitorToDMX.csproj|d:\\altmonitortodmx\\monitortodmx\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5FD8F6CB-4792-4169-A76C-28F90758F062}|MonitorToDMX.csproj|c:\\users\\zacgr\\documents\\monitortodmx\\monitortodmx\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5FD8F6CB-4792-4169-A76C-28F90758F062}|MonitorToDMX.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\zacgr\\AppData\\Local\\Temp\\.vsdbgsrc\\326c60a033293f7c8a2d389fe21d9c0e794abbd90fe29a8de49b02af11342113\\OpenDmxController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5FD8F6CB-4792-4169-A76C-28F90758F062}|MonitorToDMX.csproj|c:\\users\\zacgr\\documents\\monitortodmx\\monitortodmx\\monitortodmx.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{5FD8F6CB-4792-4169-A76C-28F90758F062}|MonitorToDMX.csproj|solutionrelative:monitortodmx.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5FD8F6CB-4792-4169-A76C-28F90758F062}|MonitorToDMX.csproj|d:\\altmonitortodmx\\monitortodmx\\monitortodmx.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{5FD8F6CB-4792-4169-A76C-28F90758F062}|MonitorToDMX.csproj|solutionrelative:monitortodmx.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{5FD8F6CB-4792-4169-A76C-28F90758F062}|MonitorToDMX.csproj|c:\\users\\zacgr\\documents\\monitortodmx\\monitortodmx\\configs\\home.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{5FD8F6CB-4792-4169-A76C-28F90758F062}|MonitorToDMX.csproj|solutionrelative:configs\\home.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -33,36 +34,39 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "OpenDmxController.cs",
-              "DocumentMoniker": "C:\\Users\\zacgr\\AppData\\Local\\Temp\\.vsdbgsrc\\326c60a033293f7c8a2d389fe21d9c0e794abbd90fe29a8de49b02af11342113\\OpenDmxController.cs",
-              "ToolTip": "C:\\Users\\zacgr\\AppData\\Local\\Temp\\.vsdbgsrc\\326c60a033293f7c8a2d389fe21d9c0e794abbd90fe29a8de49b02af11342113\\OpenDmxController.cs [Read Only]",
-              "ViewState": "AgIAALsAAAAAAAAAAADwv8cAAAABAAAAAQAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-14T15:13:27.354Z",
-              "EditorCaption": " [Read Only]"
+              "DocumentIndex": 2,
+              "Title": "Home.json",
+              "DocumentMoniker": "C:\\Users\\zacgr\\Documents\\MonitorToDMX\\MonitorToDMX\\Configs\\Home.json",
+              "RelativeDocumentMoniker": "Configs\\Home.json",
+              "ToolTip": "C:\\Users\\zacgr\\Documents\\MonitorToDMX\\MonitorToDMX\\Configs\\Home.json",
+              "RelativeToolTip": "Configs\\Home.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-16T01:46:18.829Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "MonitorToDMX.csproj",
-              "DocumentMoniker": "D:\\ALTMonitorToDMX\\MonitorToDMX\\MonitorToDMX.csproj",
+              "DocumentMoniker": "C:\\Users\\zacgr\\Documents\\MonitorToDMX\\MonitorToDMX\\MonitorToDMX.csproj",
               "RelativeDocumentMoniker": "MonitorToDMX.csproj",
-              "ToolTip": "D:\\ALTMonitorToDMX\\MonitorToDMX\\MonitorToDMX.csproj",
+              "ToolTip": "C:\\Users\\zacgr\\Documents\\MonitorToDMX\\MonitorToDMX\\MonitorToDMX.csproj",
               "RelativeToolTip": "MonitorToDMX.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-05-15T01:38:10.363Z"
+              "WhenOpened": "2025-05-15T01:38:10.363Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Program.cs",
-              "DocumentMoniker": "D:\\ALTMonitorToDMX\\MonitorToDMX\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\zacgr\\Documents\\MonitorToDMX\\MonitorToDMX\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "D:\\ALTMonitorToDMX\\MonitorToDMX\\Program.cs",
+              "ToolTip": "C:\\Users\\zacgr\\Documents\\MonitorToDMX\\MonitorToDMX\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEEAAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAD8BAAAAAAAAAAAkwFEBAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-14T20:51:59.875Z",
               "EditorCaption": ""

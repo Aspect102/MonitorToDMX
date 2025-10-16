@@ -1,12 +1,14 @@
 ﻿using Dmx.Net.Common;
 using Dmx.Net.Controllers;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Drawing.Imaging;
 using Terminal.Gui;
 using Terminal.Gui.TextValidateProviders;
 using Application = Terminal.Gui.Application;
+using Button = Terminal.Gui.Button;
+using ComboBox = Terminal.Gui.ComboBox;
 using Label = Terminal.Gui.Label;
+using Shortcut = Terminal.Gui.Shortcut;
 
 // Copyright (c) 2025 Zac Grey
 // Licensed under the MIT License. See LICENSE file in the project root for license information.
@@ -18,23 +20,42 @@ class Program
     private static int cols = 4;
     private static int rows = 3;
     private static int partitionAmount = cols * rows;
+    private static bool debugMode = false;
+    private static int sens = 0; // sensitivity threshold (0-255)
+    private static CancellationTokenSource dmxCancel;
 
-    public static CancellationTokenSource dmxCancel;
     public static MainWindow mainWindow;
-    public static int sens = 0; // sensitivity threshold (0-255)
+    
 
     static void Main(string[] args)
     {
-        dmxController.Open(0);
-        dmxTimer.Start();
-        mainWindow = Application.Run<MainWindow>();
-        Application.Shutdown();
+        if (debugMode)
+        {
+            dmxTimer.Start();
+        }
+        else
+        {
+            try
+            {
+                dmxController.Open(0);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error initializing dmxController (have you plugged in the DMX-USB converter?) {ex.Message}");
+                return;
+            }
+
+            dmxTimer.Start();
+        }
+
+        mainWindow = new MainWindow();
+        Application.Run<MainWindow>();
     }
 
     public static void WriteGlobalColour(byte r, byte g, byte b)
     {
         dmxTimer.Start();
-        byte[] pattern = new byte[] { 255, r, g, b, 0, 0, 0, 0, 0 }; // 9 channels
+        byte[] pattern = [255, r, g, b, 0, 0, 0, 0, 0]; // 9 channels
         byte[] result = Enumerable.Repeat(pattern, 12).SelectMany(x => x).ToArray();
         dmxController.SetChannelRange(1, result);
     }
@@ -64,7 +85,7 @@ class Program
 
                     Application.Invoke(() =>
                     {
-                        MainWindow.dataTbl.Add(new DMXTableEntry(DateTime.Now, AverageToString(dmxBuffer)));
+                        mainWindow.dataTbl.Add(new DMXTableEntry(DateTime.Now, AverageToString(dmxBuffer)));
 
                         var columns = new Dictionary<string, Func<DMXTableEntry, object>>
                         {
@@ -72,12 +93,12 @@ class Program
                             { "Data", d => d.Data }
                         };
 
-                        MainWindow.outputTbl.Table = new EnumerableTableSource<DMXTableEntry>(MainWindow.dataTbl, columns);
-                        MainWindow.outputTbl.Update(); // refresh
+                        mainWindow.outputTbl.Table = new EnumerableTableSource<DMXTableEntry>(mainWindow.dataTbl, columns);
+                        mainWindow.outputTbl.Update(); // refresh
                     });
                 }
 
-                await Task.Delay(int.Parse(MainWindow.DelayText), token);
+                await Task.Delay(int.Parse(mainWindow.DelayText), token);
             }
         }, dmxCancel.Token);
     }
@@ -104,8 +125,8 @@ class Program
 
     static byte[] ComputeDmxBuffer(Bitmap bmp)
     {
-        int[] startAddresses = new int[] { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120 };
-        int[] parAddresses = new int[] { 130, 140, 150, 160, 170, 180 };
+        int[] startAddresses = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120];
+        int[] parAddresses = [130, 140, 150, 160, 170, 180];
 
         int partWidth = bmp.Width / cols;
         int partHeight = bmp.Height / rows;
@@ -209,19 +230,22 @@ class Program
 
 public class MainWindow : Window
 {
-    public static string DelayText { get; set; }
-    public static TableView outputTbl { get; set; }
-    public static ObservableCollection<DMXTableEntry> dataTbl = new ObservableCollection<DMXTableEntry>();
+    public string DelayText { get; set; }
+    public TableView outputTbl { get; set; }
+
+    public ObservableCollection<DMXTableEntry> dataTbl = new ObservableCollection<DMXTableEntry>();
 
     public MainWindow()
     {
+        #region Main Window
+
         Title = $"MonitorToDMX ({Application.QuitKey} to quit)";
 
         var selectRadioBtn = new RadioGroup()
         {
+            Y = Pos.Align(Alignment.Start) + 2,
             RadioLabels = ["Manual Colour Mode", "Monitor Colour Mode"],
         };
-        Add(selectRadioBtn);
 
         selectRadioBtn.SelectedItemChanged += (s, e) =>
         {
@@ -231,13 +255,30 @@ public class MainWindow : Window
                 Program.StartDmxLoop();
         };
 
+        var loadShortcut = new Shortcut()
+        {
+            X = Pos.Align(Alignment.Start),
+            HelpText = "Load Config",
+            Key = Key.L,
+            Action = () =>
+            {
+                var openDialog = new OpenDialog()
+                {
+                    AllowedTypes = new List<IAllowedType> { new JsonFileType() },
+                };
+                Application.Run(openDialog);
+                var jsonFile = openDialog.FilePaths;
+            }
+        };
+
         var licenseLbl = new Label()
         {
             X = Pos.AnchorEnd(),
             Y = Pos.AnchorEnd(),
             Text = "Copyright © 2025 Zac Grey"
         };
-        Add(licenseLbl);
+
+        #endregion
 
         #region Manual Controls
         var manualWindow = new Window()
@@ -260,7 +301,6 @@ public class MainWindow : Window
             Program.WriteGlobalColour(color.R, color.G, color.B);
         };
         manualWindow.Add(manualRGB);
-        Add(manualWindow);
         #endregion
 
         #region Monitor Controls
@@ -279,7 +319,6 @@ public class MainWindow : Window
             Width = Dim.Absolute(25),
             Height = Dim.Absolute(3),
         };
-        monitorWindow.Add(delayTxtWindow);
 
         var delayTxt = new TextValidateField()
         {
@@ -293,16 +332,31 @@ public class MainWindow : Window
         {
             DelayText = delayTxt.Text;
         };
-        delayTxtWindow.Add(delayTxt);
 
-        var outputWindow = new Window()
+        var addFixtureButton = new ComboBox()
         {
             Y = Pos.Align(Alignment.Start),
+            Text = "Add Fixture",
+            Width = Dim.Absolute(15),
+            Height = Dim.Absolute(15),
+        };
+
+        var tblWindow = new Window()
+        {
+            Y = Pos.Bottom(delayTxtWindow) + 1,
             Title = "Raw Output",
             Width = Dim.Absolute(50),
             Height = Dim.Fill(),
         };
-        monitorWindow.Add(outputWindow);
+
+        var fixtureWindow = new Window()
+        {
+            X = Pos.Right(tblWindow) + 1,
+            Y = Pos.Top(delayTxtWindow),
+            Title = "Fixtures",
+            Width = Dim.Absolute(50),
+            Height = Dim.Fill(),
+        };
 
         var columns = new Dictionary<string, Func<DMXTableEntry, object>>
         {
@@ -318,10 +372,14 @@ public class MainWindow : Window
             Height = Dim.Fill(),
             Table = table,
         };
-        outputWindow.Add(outputTbl);
 
-        Add(monitorWindow);
+        delayTxtWindow.Add(delayTxt);
+        fixtureWindow.Add(addFixtureButton);
+        tblWindow.Add(outputTbl);
+        monitorWindow.Add(delayTxtWindow, tblWindow, fixtureWindow);
         #endregion
+
+        Add(selectRadioBtn, loadShortcut, licenseLbl, manualWindow, monitorWindow);
     }
 }
 
@@ -335,4 +393,31 @@ public class DMXTableEntry
         Timestamp = timestamp;
         Data = data;
     }
+}
+public class JsonFileType : IAllowedType
+{
+    public bool IsAllowed(string filePath)
+    {
+        return filePath.EndsWith(".json", StringComparison.OrdinalIgnoreCase);
+    }
+}
+
+public class Fixture
+{
+    public static IEnumerable<string> ChannelDefs = ["Intensity", "Red", "Green", "Blue"];
+    public string Name { get; set; }
+    public int StartAddress { get; set; }
+
+    public Dictionary<string, int> ChannelMap = new();
+    public int ChannelCount { get; set; }
+    public string Type { get; set; }
+
+    public Fixture(string name, int startAddress, int channelCount, string type)
+    {
+        Name = name;
+        StartAddress = startAddress;
+        ChannelCount = channelCount;
+        Type = type;
+    }
+    
 }

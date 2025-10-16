@@ -525,22 +525,7 @@
           "System.Security.Principal.Windows": "4.7.0"
         }
       },
-      "Microsoft.Win32.SystemEvents/9.0.5": {
-        "runtime": {
-          "lib/net9.0/Microsoft.Win32.SystemEvents.dll": {
-            "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.525.21509"
-          }
-        },
-        "runtimeTargets": {
-          "runtimes/win/lib/net9.0/Microsoft.Win32.SystemEvents.dll": {
-            "rid": "win",
-            "assetType": "runtime",
-            "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.525.21509"
-          }
-        }
-      },
+      "Microsoft.Win32.SystemEvents/9.0.5": {},
       "NAudio/2.2.1": {
         "dependencies": {
           "NAudio.Asio": "2.2.1",
@@ -848,16 +833,6 @@
       "System.Drawing.Common/9.0.5": {
         "dependencies": {
           "Microsoft.Win32.SystemEvents": "9.0.5"
-        },
-        "runtime": {
-          "lib/net9.0/System.Drawing.Common.dll": {
-            "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.525.21601"
-          },
-          "lib/net9.0/System.Private.Windows.Core.dll": {
-            "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.525.21601"
-          }
         }
       },
       "System.Globalization/4.3.0": {
