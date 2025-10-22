@@ -1,15 +1,15 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\zacgr\\Documents\\MAUI Testing\\MonitorToDMX\\obj\\Debug\\net9.0-android\\scopedcss\\bundle\\MonitorToDMX.styles.css",
+      "Id": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\obj\\Debug\\net9.0-android\\scopedcss\\bundle\\MonitorToDMX.styles.css",
       "PackagePath": "staticwebassets\\MonitorToDMX.styles.css"
     },
     {
-      "Id": "C:\\Users\\zacgr\\Documents\\MAUI Testing\\MonitorToDMX\\wwwroot\\css\\app.css",
+      "Id": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\wwwroot\\css\\app.css",
       "PackagePath": "staticwebassets\\css\\app.css"
     },
     {
-      "Id": "C:\\Users\\zacgr\\Documents\\MAUI Testing\\MonitorToDMX\\wwwroot\\index.html",
+      "Id": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\wwwroot\\index.html",
       "PackagePath": "staticwebassets\\index.html"
     },
     {

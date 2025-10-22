@@ -18,7 +18,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MonitorToDMX")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+dcc195a95aae95e4e47735e740f57ea718f2e004")]
 [assembly: System.Reflection.AssemblyProductAttribute("MonitorToDMX")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MonitorToDMX")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

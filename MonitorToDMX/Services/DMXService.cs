@@ -1,9 +1,12 @@
 ﻿using Dmx.Net.Common;
 using Dmx.Net.Controllers;
+using Microsoft.Maui.ApplicationModel;
+using Microsoft.Maui.Devices;
+using MonitorToDMX.Models;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Windows.Forms;
+using static MonitorToDMX.Models.Fixture; // Add this for MainThread
 
 namespace MonitorToDMX.Services
 {
@@ -21,78 +24,41 @@ namespace MonitorToDMX.Services
         public static Show show = new Show();
 
 
-        static void Maind(string[] args)
-        {
-            if (debugMode)
-            {
-                dmxTimer.Start();
-            }
-            else
-            {
-                try
-                {
-                    dmxController.Open(0);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error initializing dmxController (have you plugged in the DMX-USB converter?) {ex.Message}");
-                    return;
-                }
+        //static void Maind(string[] args)
+        //{
+        //    if (debugMode)
+        //    {
+        //        dmxTimer.Start();
+        //    }
+        //    else
+        //    {
+        //        try
+        //        {
+        //            dmxController.Open(0);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Console.WriteLine($"Error initializing dmxController (have you plugged in the DMX-USB converter?) {ex.Message}");
+        //            return;
+        //        }
 
-                dmxTimer.Start();
-            }
+        //        dmxTimer.Start();
+        //    }
 
-            Fixture.Fixtures.Add(new Fixture("Fresnel V", new List<Fixture.FixtureMode>
-        {
-            { Fixture.FixtureMode.Intensity},
-            { Fixture.FixtureMode.Red},
-            { Fixture.FixtureMode.Green },
-            { Fixture.FixtureMode.Blue },
-            { Fixture.FixtureMode.Indigo },
-            { Fixture.FixtureMode.Lime },
-            { Fixture.FixtureMode.Strobe },
-            { Fixture.FixtureMode.Zoom },
-            { Fixture.FixtureMode.Fan },
-        }, Fixture.ColourMode.Partitioned));
 
-            Fixture.Fixtures.Add(new Fixture("PAR", new List<Fixture.FixtureMode>
-        {
-            { Fixture.FixtureMode.Intensity },
-            { Fixture.FixtureMode.Red },
-            { Fixture.FixtureMode.Green },
-            { Fixture.FixtureMode.Blue },
-            { Fixture.FixtureMode.Lime },
-            { Fixture.FixtureMode.Strobe },
-        }, Fixture.ColourMode.Global));
 
-            show.AddLight(Fixture.Fixtures[0], 10, 0, 0);
-            show.AddLight(Fixture.Fixtures[0], 20, 1, 0);
-            show.AddLight(Fixture.Fixtures[0], 30, 2, 0);
-            show.AddLight(Fixture.Fixtures[0], 40, 3, 0);
-            show.AddLight(Fixture.Fixtures[0], 50, 0, 1);
-            show.AddLight(Fixture.Fixtures[0], 60, 1, 1);
-            show.AddLight(Fixture.Fixtures[0], 70, 2, 1);
-            show.AddLight(Fixture.Fixtures[0], 80, 3, 1);
-            show.AddLight(Fixture.Fixtures[0], 90, 0, 2);
-            show.AddLight(Fixture.Fixtures[0], 100, 1, 2);
-            show.AddLight(Fixture.Fixtures[0], 110, 2, 2);
-            show.AddLight(Fixture.Fixtures[0], 120, 3, 2);
 
-            show.AddLight(Fixture.Fixtures[1], 130);
-            show.AddLight(Fixture.Fixtures[1], 140);
-            show.AddLight(Fixture.Fixtures[1], 150);
-            show.AddLight(Fixture.Fixtures[1], 160);
-            show.AddLight(Fixture.Fixtures[1], 170);
-            show.AddLight(Fixture.Fixtures[1], 180);
-        }
 
-        public static void WriteGlobalColour(byte r, byte g, byte b)
-        {
-            dmxTimer.Start();
-            byte[] pattern = [255, r, g, b, 0, 0, 0, 0, 0]; // 9 channels
-            byte[] result = Enumerable.Repeat(pattern, 12).SelectMany(x => x).ToArray();
-            dmxController.SetChannelRange(1, result);
-        }
+        
+//}
+
+//public static void WriteGlobalColour(byte r, byte g, byte b)
+//{
+//    dmxTimer.Start();
+//    byte[] pattern = [255, r, g, b, 0, 0, 0, 0, 0]; // 9 channels
+//    byte[] result = Enumerable.Repeat(pattern, 12).SelectMany(x => x).ToArray();
+//    dmxController.SetChannelRange(1, result);
+//}
 
         public static void StartDmxLoop()
         {
@@ -112,7 +78,7 @@ namespace MonitorToDMX.Services
 
                 while (!token.IsCancellationRequested)
                 {
-                    using (Bitmap screenshot = CaptureScreen())
+                    using (Bitmap screenshot = await CaptureScreenAsync())
                     {
                         byte[] dmxBuffer = ComputeDmxBuffer(screenshot, show);
                         dmxController.SetChannelRange(1, dmxBuffer);
@@ -132,9 +98,9 @@ namespace MonitorToDMX.Services
 
         static string AverageToString(byte[] averages) => string.Join(",", averages);
 
-        static Bitmap CaptureScreen()
+        static async Task<Bitmap> CaptureScreenAsync()
         {
-            var displayInfo = DeviceDisplay.MainDisplayInfo; // Use .NET MAUI's DeviceDisplay API
+            DisplayInfo displayInfo = await MainThread.InvokeOnMainThreadAsync(() => DeviceDisplay.MainDisplayInfo);
             var bounds = new Rectangle(0, 0, (int)displayInfo.Width, (int)displayInfo.Height);
 
             var bmp = new Bitmap(bounds.Width, bounds.Height, PixelFormat.Format24bppRgb);
@@ -150,7 +116,8 @@ namespace MonitorToDMX.Services
             int partWidth = bmp.Width / cols;
             int partHeight = bmp.Height / rows;
 
-            List<Rectangle> regions = new List<Rectangle>();
+            // Precompute regions
+            Dictionary<(int col, int row), Rectangle> regionMap = new();
             for (int i = 0; i < partitionAmount; i++)
             {
                 int row = i / cols;
@@ -159,216 +126,134 @@ namespace MonitorToDMX.Services
                 int y = row * partHeight;
                 int width = (col == cols - 1) ? bmp.Width - x : partWidth;
                 int height = (row == rows - 1) ? bmp.Height - y : partHeight;
-                regions.Add(new Rectangle(x, y, width, height));
+                regionMap[(col, row)] = new Rectangle(x, y, width, height);
             }
 
             byte[] dmxValues = new byte[511];
+            Dictionary<(int col, int row), (long sumR, long sumG, long sumB, int count)> regionSums
+                = new Dictionary<(int col, int row), (long, long, long, int)>();
 
-            // Lock entire screen bitmap once for efficiency
-            BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+            BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height),
+                                              ImageLockMode.ReadOnly,
+                                              PixelFormat.Format24bppRgb);
+
             unsafe
             {
                 byte* ptr = (byte*)bmpData.Scan0;
                 int stride = bmpData.Stride;
 
+                var regionKeys = regionMap.Keys.ToArray();
 
-                for (int i = 0; i < partitionAmount; i++)
+                Parallel.For(0, regionKeys.Length, i =>
                 {
-                    Rectangle rect = regions[i];
-                    long sumR = 0, sumG = 0, sumB = 0;
-                    int pixelCount = rect.Width * rect.Height;
+                    var key = regionKeys[i];
+                    var rect = regionMap[key];
 
-                    for (int y = rect.Top; y < rect.Bottom; y++)
+                    long localSumR = 0, localSumG = 0, localSumB = 0;
+
+                    Parallel.For(rect.Top, rect.Bottom, y =>
                     {
-                        byte* row = ptr + (y * stride);
-                        for (int x = rect.Left; x < rect.Right; x++)
+                        long rowSumR = 0, rowSumG = 0, rowSumB = 0;
+
+                        byte* rowPtr = ptr + y * stride;
+                        byte* p = rowPtr + rect.Left * 3;
+
+                        for (int x = 0; x < rect.Width; x++)
                         {
-                            sumB += row[x * 3 + 0];
-                            sumG += row[x * 3 + 1];
-                            sumR += row[x * 3 + 2];
+                            rowSumB += p[0];
+                            rowSumG += p[1];
+                            rowSumR += p[2];
+                            p += 3;
+                        }
+                        Interlocked.Add(ref localSumR, rowSumR);
+                        Interlocked.Add(ref localSumG, rowSumG);
+                        Interlocked.Add(ref localSumB, rowSumB);
+                    });
+                    lock (regionSums)
+                    {
+                        regionSums[key] = (localSumR, localSumG, localSumB, rect.Width * rect.Height);
+                    }
+                });
+
+                // Compute global sum by reusing region sums
+                long globalR = 0, globalG = 0, globalB = 0;
+                int globalCount = 0;
+                foreach (var sums in regionSums.Values)
+                {
+                    globalR += sums.sumR;
+                    globalG += sums.sumG;
+                    globalB += sums.sumB;
+                    globalCount += sums.count;
+                }
+
+                foreach (var fixture in show.ShowList)
+                {
+                    long sumR = 0, sumG = 0, sumB = 0;
+                    int pixelCount = 0;
+
+                    if (fixture.Type == Fixture.ColourMode.Partitioned)
+                    {
+                        var pos = fixture.Position;
+                        if (pos.x.HasValue && pos.y.HasValue)
+                        {
+                            var sums = regionSums[(pos.x.Value, pos.y.Value)];
+                            sumR = sums.sumR;
+                            sumG = sums.sumG;
+                            sumB = sums.sumB;
+                            pixelCount = sums.count;
                         }
                     }
-
-                    byte intensity = 0, r = 0, g = 0, b = 0;
-                    if ((sumR + sumG + sumB) / pixelCount > sens)
+                    else if (fixture.Type == Fixture.ColourMode.Global)
                     {
-                        intensity = (byte)(Math.Max(sumR, Math.Max(sumG, sumB)) / pixelCount);
+                        sumR = globalR;
+                        sumG = globalG;
+                        sumB = globalB;
+                        pixelCount = globalCount;
+                    }
+
+                    byte r = 0, g = 0, b = 0, intensity = 0;
+                    if (pixelCount > 0)
+                    {
                         r = (byte)(sumR / pixelCount);
                         g = (byte)(sumG / pixelCount);
                         b = (byte)(sumB / pixelCount);
+                        intensity = (byte)Math.Max(r, Math.Max(g, b));
                     }
+                    var indigo = (byte)Math.Min(255, r * 0.1 + b * 0.5);
+                    var lime = (byte)Math.Min(255, r * 0.1 + g * 0.9 + b * 0.1);
 
-                    foreach (Fixture item in show.ShowList)
+                    // Map fixture modes to values
+                    var channelValues = new Dictionary<FixtureMode, byte>
                     {
-                        if (item.Type == Fixture.ColourMode.Partitioned)
+                        { FixtureMode.Intensity, intensity },
+                        { FixtureMode.Red, r },
+                        { FixtureMode.Green, g },
+                        { FixtureMode.Blue, b },
+                        { FixtureMode.Indigo, indigo },
+                        { FixtureMode.Lime, lime }
+                    };
+
+                    // Assign DMX values based on the mapping
+                    foreach (var kvp in fixture.ChannelMapping)
+                    {
+                        int dmxIndex = fixture.StartingAddress - 1 + kvp.Value;
+                        FixtureMode mode = kvp.Key;
+
+                        if (dmxIndex >= 0 && dmxIndex < dmxValues.Length &&
+                            channelValues.TryGetValue(mode, out byte value))
                         {
-                            for (int j = 0; j < item.Channels.Count; j++)
-                            {
-                                switch (item.Channels[j])
-                                {
-                                    case Fixture.FixtureMode.Intensity:
-                                        dmxValues[item.StartingAddress - 1 + j] = intensity;
-                                        break;
-                                    case Fixture.FixtureMode.Red:
-                                        dmxValues[item.StartingAddress - 1 + j] = r;
-                                        break;
-                                    case Fixture.FixtureMode.Green:
-                                        dmxValues[item.StartingAddress - 1 + j] = g;
-                                        break;
-                                    case Fixture.FixtureMode.Blue:
-                                        dmxValues[item.StartingAddress - 1 + j] = b;
-                                        break;
-                                    case Fixture.FixtureMode.Indigo:
-                                        dmxValues[item.StartingAddress - 1 + j] = 0;
-                                        break;
-                                    case Fixture.FixtureMode.Lime:
-                                        dmxValues[item.StartingAddress - 1 + j] = 0;
-                                        break;
-                                    case Fixture.FixtureMode.Strobe:
-                                        dmxValues[item.StartingAddress - 1 + j] = 0;
-                                        break;
-                                    case Fixture.FixtureMode.Zoom:
-                                        dmxValues[item.StartingAddress - 1 + j] = 0;
-                                        break;
-                                    case Fixture.FixtureMode.Fan:
-                                        dmxValues[item.StartingAddress - 1 + j] = 0;
-                                        break;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                // Compute total screen average for PARs
-                long totalR = 0, totalG = 0, totalB = 0;
-                int totalPixels = bmp.Width * bmp.Height;
-                for (int y = 0; y < bmp.Height; y++)
-                {
-                    byte* row = ptr + (y * stride);
-                    for (int x = 0; x < bmp.Width; x++)
-                    {
-                        totalB += row[x * 3 + 0];
-                        totalG += row[x * 3 + 1];
-                        totalR += row[x * 3 + 2];
-                    }
-                }
-
-                byte parIntensity = (byte)(Math.Max(totalR, Math.Max(totalG, totalB)) / totalPixels);
-                byte parR = (byte)(totalR / totalPixels);
-                byte parG = (byte)(totalG / totalPixels);
-                byte parB = (byte)(totalB / totalPixels);
-
-                if ((parR + parG + parB) / 3 <= sens)
-                    parIntensity = parR = parG = parB = 0;
-
-                foreach (Fixture item in show.ShowList)
-                {
-                    if (item.Type == Fixture.ColourMode.Global)
-                    {
-                        for (int j = 0; j < item.Channels.Count; j++)
-                        {
-                            switch (item.Channels[j])
-                            {
-                                case Fixture.FixtureMode.Intensity:
-                                    dmxValues[item.StartingAddress - 1 + j] = parIntensity;
-                                    break;
-                                case Fixture.FixtureMode.Red:
-                                    dmxValues[item.StartingAddress - 1 + j] = parR;
-                                    break;
-                                case Fixture.FixtureMode.Green:
-                                    dmxValues[item.StartingAddress - 1 + j] = parG;
-                                    break;
-                                case Fixture.FixtureMode.Blue:
-                                    dmxValues[item.StartingAddress - 1 + j] = parB;
-                                    break;
-                                case Fixture.FixtureMode.Indigo:
-                                    dmxValues[item.StartingAddress - 1 + j] = 0;
-                                    break;
-                                case Fixture.FixtureMode.Lime:
-                                    dmxValues[item.StartingAddress - 1 + j] = 0;
-                                    break;
-                                case Fixture.FixtureMode.Strobe:
-                                    dmxValues[item.StartingAddress - 1 + j] = 0;
-                                    break;
-                                case Fixture.FixtureMode.Zoom:
-                                    dmxValues[item.StartingAddress - 1 + j] = 0;
-                                    break;
-                                case Fixture.FixtureMode.Fan:
-                                    dmxValues[item.StartingAddress - 1 + j] = 0;
-                                    break;
-                            }
+                            dmxValues[dmxIndex] = value;
                         }
                     }
                 }
             }
-            bmp.UnlockBits(bmpData);
 
+            bmp.UnlockBits(bmpData);
             return dmxValues;
         }
-    }
 
-    public class Fixture
-    {
-        public enum FixtureMode
-        {
-            Intensity,
-            Red,
-            Green,
-            Blue,
-            Indigo,
-            Lime,
-            Strobe,
-            Zoom,
-            Fan
-        }
 
-        public enum ColourMode
-        {
-            Global,
-            Partitioned
-        }
 
-        public static List<Fixture> Fixtures = new();
-
-        public (int? x, int? y) Position { get; set; }
-
-        public int StartingAddress { get; set; }
-
-        public string Name { get; set; }
-
-        public List<FixtureMode> Channels { get; set; }
-
-        public ColourMode Type { get; set; }
-
-        public Fixture(string name, List<FixtureMode> channels, ColourMode type)
-        {
-            Name = name;
-            Channels = channels;
-            Type = type;
-        }
-    }
-
-    public class Show
-    {
-        public List<Fixture> ShowList { get; set; }
-
-        public void AddLight(Fixture fixture, int startingAddress, int x, int y)
-        {
-            fixture.Position = (x, y);
-            fixture.StartingAddress = startingAddress;
-            ShowList.Add(fixture);
-        }
-        public void AddLight(Fixture fixture, int startingAddress)
-        {
-            fixture.Position = (null, null);
-            fixture.StartingAddress = startingAddress;
-            ShowList.Add(fixture);
-        }
-
-        public Show(List<Fixture>? showList = null)
-        {
-            ShowList = showList ?? new List<Fixture>();
-        }
     }
 }
 

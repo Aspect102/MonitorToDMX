@@ -1,25 +1,30 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\zacgr\\Documents\\MAUI Testing\\MonitorToDMX\\",
+  "WorkspaceRootPath": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|c:\\users\\zacgr\\documents\\maui testing\\monitortodmx\\services\\dmxservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|c:\\users\\zacgr\\onedrive\\documents\\monitortodmx\\monitortodmx\\components\\pages\\monitor.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|solutionrelative:components\\pages\\monitor.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|c:\\users\\zacgr\\onedrive\\documents\\monitortodmx\\monitortodmx\\models\\fixture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|solutionrelative:models\\fixture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|c:\\users\\zacgr\\onedrive\\documents\\monitortodmx\\monitortodmx\\services\\dmxservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|solutionrelative:services\\dmxservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|c:\\users\\zacgr\\documents\\maui testing\\monitortodmx\\components\\manualrgbcontrol.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|solutionrelative:components\\manualrgbcontrol.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|c:\\users\\zacgr\\documents\\maui testing\\monitortodmx\\monitortodmx.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|solutionrelative:monitortodmx.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\dotnet\\sdk\\9.0.304\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|c:\\users\\zacgr\\documents\\maui testing\\monitortodmx\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|c:\\users\\zacgr\\onedrive\\documents\\monitortodmx\\monitortodmx\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|solutionrelative:components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|c:\\users\\zacgr\\onedrive\\documents\\monitortodmx\\monitortodmx\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|solutionrelative:components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|c:\\users\\zacgr\\onedrive\\documents\\monitortodmx\\monitortodmx\\models\\show.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|solutionrelative:models\\show.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -29,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -41,67 +46,80 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Microsoft.NET.Sdk.DefaultItems.targets",
-              "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\9.0.304\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.targets",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.304\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.targets",
-              "ToolTip": "C:\\Program Files\\dotnet\\sdk\\9.0.304\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.targets",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.304\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.targets",
-              "ViewState": "AgIAAHcAAAAAAAAAAAAvwI0AAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
-              "WhenOpened": "2025-10-22T01:54:36.712Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "MonitorToDMX.csproj",
-              "DocumentMoniker": "C:\\Users\\zacgr\\Documents\\MAUI Testing\\MonitorToDMX\\MonitorToDMX.csproj",
-              "RelativeDocumentMoniker": "MonitorToDMX.csproj",
-              "ToolTip": "C:\\Users\\zacgr\\Documents\\MAUI Testing\\MonitorToDMX\\MonitorToDMX.csproj",
-              "RelativeToolTip": "MonitorToDMX.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAABTAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-10-22T01:52:01.756Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "DMXService.cs",
-              "DocumentMoniker": "C:\\Users\\zacgr\\Documents\\MAUI Testing\\MonitorToDMX\\Services\\DMXService.cs",
-              "RelativeDocumentMoniker": "Services\\DMXService.cs",
-              "ToolTip": "C:\\Users\\zacgr\\Documents\\MAUI Testing\\MonitorToDMX\\Services\\DMXService.cs*",
-              "RelativeToolTip": "Services\\DMXService.cs*",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAEwBQAAAAeAAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "Show.cs",
+              "DocumentMoniker": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Models\\Show.cs",
+              "RelativeDocumentMoniker": "Models\\Show.cs",
+              "ToolTip": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Models\\Show.cs",
+              "RelativeToolTip": "Models\\Show.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAA5wCEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-22T01:11:00.062Z",
+              "WhenOpened": "2025-10-22T17:36:53.83Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ManualRGBControl.razor",
-              "DocumentMoniker": "C:\\Users\\zacgr\\Documents\\MAUI Testing\\MonitorToDMX\\Components\\ManualRGBControl.razor",
-              "RelativeDocumentMoniker": "Components\\ManualRGBControl.razor",
-              "ToolTip": "C:\\Users\\zacgr\\Documents\\MAUI Testing\\MonitorToDMX\\Components\\ManualRGBControl.razor",
-              "RelativeToolTip": "Components\\ManualRGBControl.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-22T00:53:48.342Z",
+              "Title": "Fixture.cs",
+              "DocumentMoniker": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Models\\Fixture.cs",
+              "RelativeDocumentMoniker": "Models\\Fixture.cs",
+              "ToolTip": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Models\\Fixture.cs",
+              "RelativeToolTip": "Models\\Fixture.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAhwCYAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-22T17:36:53.008Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Home.razor",
-              "DocumentMoniker": "C:\\Users\\zacgr\\Documents\\MAUI Testing\\MonitorToDMX\\Components\\Pages\\Home.razor",
-              "RelativeDocumentMoniker": "Components\\Pages\\Home.razor",
-              "ToolTip": "C:\\Users\\zacgr\\Documents\\MAUI Testing\\MonitorToDMX\\Components\\Pages\\Home.razor",
-              "RelativeToolTip": "Components\\Pages\\Home.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Title": "MainLayout.razor",
+              "DocumentMoniker": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Components\\Layout\\MainLayout.razor",
+              "RelativeDocumentMoniker": "Components\\Layout\\MainLayout.razor",
+              "ToolTip": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Components\\Layout\\MainLayout.razor",
+              "RelativeToolTip": "Components\\Layout\\MainLayout.razor",
+              "ViewState": "AgIAACoAAAAAAAAAAAAcwDQAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-22T00:51:23.949Z",
+              "WhenOpened": "2025-10-22T16:56:26.693Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DMXService.cs",
+              "DocumentMoniker": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Services\\DMXService.cs",
+              "RelativeDocumentMoniker": "Services\\DMXService.cs",
+              "ToolTip": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Services\\DMXService.cs",
+              "RelativeToolTip": "Services\\DMXService.cs",
+              "ViewState": "AgIAANIAAAAAAAAAAAAmwLwAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-22T16:47:36.651Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Home.razor",
+              "DocumentMoniker": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Components\\Pages\\Home.razor",
+              "RelativeDocumentMoniker": "Components\\Pages\\Home.razor",
+              "ToolTip": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Components\\Pages\\Home.razor",
+              "RelativeToolTip": "Components\\Pages\\Home.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-22T16:41:22.211Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Monitor.razor",
+              "DocumentMoniker": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Components\\Pages\\Monitor.razor",
+              "RelativeDocumentMoniker": "Components\\Pages\\Monitor.razor",
+              "ToolTip": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Components\\Pages\\Monitor.razor",
+              "RelativeToolTip": "Components\\Pages\\Monitor.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-22T16:40:32.684Z",
               "EditorCaption": ""
             }
           ]

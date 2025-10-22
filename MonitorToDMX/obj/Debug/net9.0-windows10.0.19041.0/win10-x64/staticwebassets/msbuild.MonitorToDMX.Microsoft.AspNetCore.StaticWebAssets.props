@@ -17,7 +17,7 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <FileLength>3376</FileLength>
-      <LastWriteTime>Wed, 22 Oct 2025 00:51:20 GMT</LastWriteTime>
+      <LastWriteTime>Wed, 22 Oct 2025 15:26:44 GMT</LastWriteTime>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\app.css'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\index.html'))">
@@ -37,7 +37,7 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <FileLength>787</FileLength>
-      <LastWriteTime>Wed, 22 Oct 2025 00:51:20 GMT</LastWriteTime>
+      <LastWriteTime>Wed, 22 Oct 2025 15:26:44 GMT</LastWriteTime>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\index.html'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\MonitorToDMX.styles.css'))">
@@ -57,7 +57,7 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <FileLength>54</FileLength>
-      <LastWriteTime>Wed, 22 Oct 2025 00:51:39 GMT</LastWriteTime>
+      <LastWriteTime>Wed, 22 Oct 2025 16:17:44 GMT</LastWriteTime>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\MonitorToDMX.styles.css'))</OriginalItemSpec>
     </StaticWebAsset>
   </ItemGroup>
