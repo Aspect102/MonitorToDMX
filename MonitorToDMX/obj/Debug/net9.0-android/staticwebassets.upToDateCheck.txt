@@ -1,0 +1,4 @@
+wwwroot\css\app.css
+wwwroot\index.html
+C:\Users\zacgr\Documents\MAUI Testing\MonitorToDMX\wwwroot\css\app.css
+C:\Users\zacgr\Documents\MAUI Testing\MonitorToDMX\wwwroot\index.html

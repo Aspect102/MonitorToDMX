@@ -1,18 +1,25 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\zacgr\\Documents\\MonitorToDMX\\MonitorToDMX\\",
+  "WorkspaceRootPath": "C:\\Users\\zacgr\\Documents\\MAUI Testing\\MonitorToDMX\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5FD8F6CB-4792-4169-A76C-28F90758F062}|MonitorToDMX.csproj|c:\\users\\zacgr\\documents\\monitortodmx\\monitortodmx\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FD8F6CB-4792-4169-A76C-28F90758F062}|MonitorToDMX.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|c:\\users\\zacgr\\documents\\maui testing\\monitortodmx\\services\\dmxservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|solutionrelative:services\\dmxservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5FD8F6CB-4792-4169-A76C-28F90758F062}|MonitorToDMX.csproj|c:\\users\\zacgr\\documents\\monitortodmx\\monitortodmx\\monitortodmx.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{5FD8F6CB-4792-4169-A76C-28F90758F062}|MonitorToDMX.csproj|solutionrelative:monitortodmx.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|c:\\users\\zacgr\\documents\\maui testing\\monitortodmx\\components\\manualrgbcontrol.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|solutionrelative:components\\manualrgbcontrol.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5FD8F6CB-4792-4169-A76C-28F90758F062}|MonitorToDMX.csproj|c:\\users\\zacgr\\documents\\monitortodmx\\monitortodmx\\configs\\home.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{5FD8F6CB-4792-4169-A76C-28F90758F062}|MonitorToDMX.csproj|solutionrelative:configs\\home.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|c:\\users\\zacgr\\documents\\maui testing\\monitortodmx\\monitortodmx.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|solutionrelative:monitortodmx.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\dotnet\\sdk\\9.0.304\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|c:\\users\\zacgr\\documents\\maui testing\\monitortodmx\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|solutionrelative:components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,41 +41,67 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Home.json",
-              "DocumentMoniker": "C:\\Users\\zacgr\\Documents\\MonitorToDMX\\MonitorToDMX\\Configs\\Home.json",
-              "RelativeDocumentMoniker": "Configs\\Home.json",
-              "ToolTip": "C:\\Users\\zacgr\\Documents\\MonitorToDMX\\MonitorToDMX\\Configs\\Home.json",
-              "RelativeToolTip": "Configs\\Home.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-10-16T01:46:18.829Z",
+              "DocumentIndex": 3,
+              "Title": "Microsoft.NET.Sdk.DefaultItems.targets",
+              "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\9.0.304\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.targets",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.304\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.targets",
+              "ToolTip": "C:\\Program Files\\dotnet\\sdk\\9.0.304\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.targets",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.304\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.targets",
+              "ViewState": "AgIAAHcAAAAAAAAAAAAvwI0AAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2025-10-22T01:54:36.712Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "MonitorToDMX.csproj",
-              "DocumentMoniker": "C:\\Users\\zacgr\\Documents\\MonitorToDMX\\MonitorToDMX\\MonitorToDMX.csproj",
+              "DocumentMoniker": "C:\\Users\\zacgr\\Documents\\MAUI Testing\\MonitorToDMX\\MonitorToDMX.csproj",
               "RelativeDocumentMoniker": "MonitorToDMX.csproj",
-              "ToolTip": "C:\\Users\\zacgr\\Documents\\MonitorToDMX\\MonitorToDMX\\MonitorToDMX.csproj",
+              "ToolTip": "C:\\Users\\zacgr\\Documents\\MAUI Testing\\MonitorToDMX\\MonitorToDMX.csproj",
               "RelativeToolTip": "MonitorToDMX.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAABTAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-05-15T01:38:10.363Z",
+              "WhenOpened": "2025-10-22T01:52:01.756Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\zacgr\\Documents\\MonitorToDMX\\MonitorToDMX\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\zacgr\\Documents\\MonitorToDMX\\MonitorToDMX\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAD8BAAAAAAAAAAAkwFEBAAAuAAAAAAAAAA==",
+              "Title": "DMXService.cs",
+              "DocumentMoniker": "C:\\Users\\zacgr\\Documents\\MAUI Testing\\MonitorToDMX\\Services\\DMXService.cs",
+              "RelativeDocumentMoniker": "Services\\DMXService.cs",
+              "ToolTip": "C:\\Users\\zacgr\\Documents\\MAUI Testing\\MonitorToDMX\\Services\\DMXService.cs*",
+              "RelativeToolTip": "Services\\DMXService.cs*",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAEwBQAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T20:51:59.875Z",
+              "WhenOpened": "2025-10-22T01:11:00.062Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ManualRGBControl.razor",
+              "DocumentMoniker": "C:\\Users\\zacgr\\Documents\\MAUI Testing\\MonitorToDMX\\Components\\ManualRGBControl.razor",
+              "RelativeDocumentMoniker": "Components\\ManualRGBControl.razor",
+              "ToolTip": "C:\\Users\\zacgr\\Documents\\MAUI Testing\\MonitorToDMX\\Components\\ManualRGBControl.razor",
+              "RelativeToolTip": "Components\\ManualRGBControl.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-22T00:53:48.342Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Home.razor",
+              "DocumentMoniker": "C:\\Users\\zacgr\\Documents\\MAUI Testing\\MonitorToDMX\\Components\\Pages\\Home.razor",
+              "RelativeDocumentMoniker": "Components\\Pages\\Home.razor",
+              "ToolTip": "C:\\Users\\zacgr\\Documents\\MAUI Testing\\MonitorToDMX\\Components\\Pages\\Home.razor",
+              "RelativeToolTip": "Components\\Pages\\Home.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-22T00:51:23.949Z",
               "EditorCaption": ""
             }
           ]
