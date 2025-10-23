@@ -1,0 +1,210 @@
+﻿@page "/monitor"
+@using MonitorToDMX.Services;
+@using MonitorToDMX.Models;
+@using System.Text.Json
+@using System.Text
+@inject IJSRuntime JS
+
+
+@code{
+    public bool test;
+}
+
+<button class="btn btn-primary" @onclick="(() => DMXService.StartDmxLoop())" disabled="@test">Start Monitoring</button>
+
+<!-- Dropdown to add new fixture -->
+<div class="mb-3">
+    <select class="form-select" @bind="selectedFixtureName">
+        <option value="">-- Select Fixture --</option>
+        @foreach (var f in Fixture.Fixtures)
+        {
+            <option value="@f.Name">@f.Name</option>
+        }
+    </select>
+    <button class="btn btn-primary mt-2" @onclick="AddFixtureToShow" disabled="@string.IsNullOrEmpty(selectedFixtureName)">Add Fixture</button>
+</div>
+
+<!-- Table showing fixtures in the show -->
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Starting Address</th>
+            <th>Position</th>
+            <th>Channels</th>
+            <th>Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < DMXService.show.ShowList.Count; i++)
+        {
+            var fixture = DMXService.show.ShowList[i];
+            var index = i;
+            <tr>
+                <td>@(i + 1)</td>
+                <td>@fixture.Name</td>
+                <td>
+                    <input type="number" class="form-control" min="1"
+                           value="@fixture.StartingAddress"
+                           @onchange="(e) => UpdateStartingAddress(fixture, e.Value?.ToString())" />
+                </td>
+                <td>
+                    @if (fixture.Type == Fixture.ColourMode.Partitioned)
+                    {
+                        <div class="d-flex gap-1">
+                            <input type="number" class="form-control" style="width: 60px;" min="0" max="@(DMXService.Columns - 1)"
+                                   value="@fixture.Position.x"
+                                   @onchange="(e) => UpdatePositionX(fixture, e.Value?.ToString())" />
+                            <input type="number" class="form-control" style="width: 60px;" min="0" max="@(DMXService.Rows - 1)"
+                                   value="@fixture.Position.y"
+                                   @onchange="(e) => UpdatePositionY(fixture, e.Value?.ToString())" />
+                        </div>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+                <td>@string.Join(", ", fixture.ChannelMapping)</td>
+                <td>
+                    <button class="btn btn-danger btn-sm" @onclick="() => RemoveFixture(index)">Remove</button>
+                </td>
+            </tr>
+        }
+        <div class="mb-3">
+            <InputFile OnChange="LoadConfig" />
+        </div>
+
+        <div class="mb-3">
+            <button class="btn btn-success" @onclick="SaveConfig">Save Show to Config</button>
+        </div>
+
+        <div class="mb-3">
+            <label>Rows: </label>
+            <input type="number" min="1" max="64" @bind="DMXService.Rows" />
+        </div>
+
+        <div class="mb-3">
+            <label>Columns: </label>
+            <input type="number" min="1" max="64" @bind="DMXService.Columns" />
+        </div>
+        @* <h3>Screen Partition Preview</h3>
+
+        <div class="screen-preview" style="position: relative; width: 720px; height: 360px; border: 2px solid black;">
+            @for (int row = 0; row < DMXService.Rows; row++)
+            {
+                for (int col = 0; col < DMXService.Columns; col++)
+                {
+                    var width = 240;
+                    var height = 180;
+                    <div class="region-box"
+                         style="
+                            position: absolute;
+                            left:@(col * width)px;
+                            top:@(row * height)px;
+                            width:@width}px;
+                            height:@height}px;
+                            border: 1px solid red;
+                            box-sizing: border-box;
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            font-size:12px;
+                            color:black;
+                            background-color: rgba(255,0,0,0.1);
+                         ">
+                        @($"{col},{row}")
+                    </div>
+                }
+            }
+        </div> *@
+    </tbody>
+</table>
+
+@code {
+    private string selectedFixtureName;
+
+    private void AddFixtureToShow()
+    {
+        var fixtureToAdd = Fixture.Fixtures.FirstOrDefault(f => f.Name == selectedFixtureName);
+        if (fixtureToAdd != null)
+        {
+            // Clone the fixture with default values
+            DMXService.show.AddLightFromExisting(fixtureToAdd, startingAddress: DMXService.show.ShowList.Count * 10 + 1);
+            selectedFixtureName = ""; // reset dropdown
+        }
+    }
+
+    private void RemoveFixture(int index)
+    {
+        DMXService.show.ShowList.RemoveAt(index);
+    }
+
+    private void UpdateStartingAddress(Fixture fixture, string newValue)
+    {
+        fixture.StartingAddress = int.Parse(newValue);
+    }
+
+    private void UpdatePositionX(Fixture fixture, string newValue)
+    {
+        if (int.TryParse(newValue, out int x) && x >= 0 && x < DMXService.Columns)
+        {
+            fixture.Position = (x, fixture.Position.y);
+        }
+    }
+
+    private void UpdatePositionY(Fixture fixture, string newValue)
+    {
+        if (int.TryParse(newValue, out int y) && y >= 0 && y < DMXService.Rows)
+        {
+            fixture.Position = (fixture.Position.x, y);
+        }
+    }
+
+    private async Task LoadConfig(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        var tempPath = Path.Combine(Path.GetTempPath(), file.Name);
+        using (var stream = File.Create(tempPath))
+        {
+            await file.OpenReadStream().CopyToAsync(stream);
+        }
+
+        try
+        {
+            await DMXService.LoadShowConfigAsync(tempPath);
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Failed to load config: {ex.Message}");
+        }
+    }
+
+    private async Task SaveConfig()
+    {
+        // Prepare the config object
+        var config = new ShowConfig
+        {
+            Fixtures = DMXService.show.ShowList.Select(f => new FixtureConfig
+            {
+                Name = f.Name,
+                Type = f.Type.ToString(),
+                StartingAddress = f.StartingAddress,
+                Position = f.Position.x.HasValue && f.Position.y.HasValue
+                    ? new PositionConfig { X = f.Position.x.Value, Y = f.Position.y.Value }
+                    : null
+            }).ToList()
+        };
+
+        var json = JsonSerializer.Serialize(config, new JsonSerializerOptions { WriteIndented = true });
+
+        // Other platforms: use JS download
+        var bytes = System.Text.Encoding.UTF8.GetBytes(json);
+        var base64 = Convert.ToBase64String(bytes);
+
+        await JS.InvokeVoidAsync("downloadFile", "showConfig.json", base64);
+    }
+
+}

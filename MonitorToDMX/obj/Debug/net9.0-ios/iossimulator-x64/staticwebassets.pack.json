@@ -1,0 +1,37 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\obj\\Debug\\net9.0-ios\\iossimulator-x64\\scopedcss\\bundle\\MonitorToDMX.styles.css",
+      "PackagePath": "staticwebassets\\MonitorToDMX.styles.css"
+    },
+    {
+      "Id": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\wwwroot\\css\\app.css",
+      "PackagePath": "staticwebassets\\css\\app.css"
+    },
+    {
+      "Id": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0-ios\\iossimulator-x64\\staticwebassets\\msbuild.MonitorToDMX.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0-ios\\iossimulator-x64\\staticwebassets\\msbuild.MonitorToDMX.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0-ios\\iossimulator-x64\\staticwebassets\\msbuild.build.MonitorToDMX.props",
+      "PackagePath": "build\\MonitorToDMX.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0-ios\\iossimulator-x64\\staticwebassets\\msbuild.buildMultiTargeting.MonitorToDMX.props",
+      "PackagePath": "buildMultiTargeting\\MonitorToDMX.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0-ios\\iossimulator-x64\\staticwebassets\\msbuild.buildTransitive.MonitorToDMX.props",
+      "PackagePath": "buildTransitive\\MonitorToDMX.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

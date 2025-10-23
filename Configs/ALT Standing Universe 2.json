@@ -1,0 +1,148 @@
+{
+  "Fixtures": [
+    {
+      "Name": "Fresnel V",
+      "Type": "Partitioned",
+      "StartingAddress": 10,
+      "Position": {
+        "X": 0,
+        "Y": 0
+      }
+    },
+    {
+      "Name": "Fresnel V",
+      "Type": "Partitioned",
+      "StartingAddress": 20,
+      "Position": {
+        "X": 1,
+        "Y": 0
+      }
+    },
+    {
+      "Name": "Fresnel V",
+      "Type": "Partitioned",
+      "StartingAddress": 30,
+      "Position": {
+        "X": 2,
+        "Y": 0
+      }
+    },
+    {
+      "Name": "Fresnel V",
+      "Type": "Partitioned",
+      "StartingAddress": 40,
+      "Position": {
+        "X": 3,
+        "Y": 0
+      }
+    },
+    {
+      "Name": "Fresnel V",
+      "Type": "Partitioned",
+      "StartingAddress": 50,
+      "Position": {
+        "X": 0,
+        "Y": 1
+      }
+    },
+    {
+      "Name": "Fresnel V",
+      "Type": "Partitioned",
+      "StartingAddress": 60,
+      "Position": {
+        "X": 1,
+        "Y": 1
+      }
+    },
+    {
+      "Name": "Fresnel V",
+      "Type": "Partitioned",
+      "StartingAddress": 70,
+      "Position": {
+        "X": 2,
+        "Y": 1
+      }
+    },
+    {
+      "Name": "Fresnel V",
+      "Type": "Partitioned",
+      "StartingAddress": 80,
+      "Position": {
+        "X": 3,
+        "Y": 1
+      }
+    },
+    {
+      "Name": "Fresnel V",
+      "Type": "Partitioned",
+      "StartingAddress": 90,
+      "Position": {
+        "X": 0,
+        "Y": 2
+      }
+    },
+    {
+      "Name": "Fresnel V",
+      "Type": "Partitioned",
+      "StartingAddress": 100,
+      "Position": {
+        "X": 1,
+        "Y": 2
+      }
+    },
+    {
+      "Name": "Fresnel V",
+      "Type": "Partitioned",
+      "StartingAddress": 110,
+      "Position": {
+        "X": 2,
+        "Y": 2
+      }
+    },
+    {
+      "Name": "Fresnel V",
+      "Type": "Partitioned",
+      "StartingAddress": 120,
+      "Position": {
+        "X": 3,
+        "Y": 2
+      }
+    },
+    {
+      "Name": "PAR",
+      "Type": "Global",
+      "StartingAddress": 130,
+      "Position": null
+    },
+    {
+      "Name": "PAR",
+      "Type": "Global",
+      "StartingAddress": 140,
+      "Position": null
+    },
+    {
+      "Name": "PAR",
+      "Type": "Global",
+      "StartingAddress": 150,
+      "Position": null
+    },
+    {
+      "Name": "PAR",
+      "Type": "Global",
+      "StartingAddress": 160,
+      "Position": null
+    },
+    {
+      "Name": "PAR",
+      "Type": "Global",
+      "StartingAddress": 170,
+      "Position": null
+    },
+    {
+      "Name": "PAR",
+      "Type": "Global",
+      "StartingAddress": 180,
+      "Position": null
+    }
+  ]
+}

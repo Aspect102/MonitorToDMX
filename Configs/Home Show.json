@@ -1,0 +1,40 @@
+{
+  "Fixtures": [
+    {
+      "Name": "UKing",
+      "Type": "Partitioned",
+      "StartingAddress": 1,
+      "Position": {
+        "X": 0,
+        "Y": 0
+      }
+    },
+    {
+      "Name": "UKing",
+      "Type": "Partitioned",
+      "StartingAddress": 8,
+      "Position": {
+        "X": 0,
+        "Y": 1
+      }
+    },
+    {
+      "Name": "UKing",
+      "Type": "Partitioned",
+      "StartingAddress": 15,
+      "Position": {
+        "X": 1,
+        "Y": 0
+      }
+    },
+    {
+      "Name": "UKing",
+      "Type": "Partitioned",
+      "StartingAddress": 22,
+      "Position": {
+        "X": 1,
+        "Y": 1
+      }
+    }
+  ]
+}
