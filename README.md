@@ -1,6 +1,5 @@
 # MonitorToDMX
-![img2]()
-<img src="https://github.com/user-attachments/assets/36dfe587-3a8b-42df-a76e-3705c492e427" width="1512" height="2016">
+<img src="https://github.com/user-attachments/assets/36dfe587-3a8b-42df-a76e-3705c492e427" width="756" height="1008">
 <img src="https://github.com/user-attachments/assets/a3dead1a-d7de-4ec1-96c4-02eab099f9db" width="2016" height="1512">
 MonitorToDMX is a Blazor Hybrid web-app that outputs lighting data through a DSD TECH SH-RS09B USB-to-DMX interface. It replicates on-screen colour by assigning light fixtures to the average colour of defined screen partitions, or using a global average colour for the entire display.
 
