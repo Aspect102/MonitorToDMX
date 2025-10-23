@@ -459,7 +459,6 @@ C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\obj\Debug\net9.0-win
 C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\scopedcss\bundle\MonitorToDMX.styles.css
 C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\scopedcss\projectbundle\MonitorToDMX.bundle.scp.css
 C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\compressed\kxzvcqaklw-e5tk7yf482.gz
-C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\compressed\vyjsv2c10r-5vkj2841g2.gz
 C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\compressed\yep25vogvo-qlthuwo0im.gz
 C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\compressed\853tu0zcw1-qlthuwo0im.gz
 C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\staticwebassets.build.json
@@ -473,7 +472,6 @@ C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\obj\Debug\net9.0-win
 C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\staticwebassets\msbuild.buildTransitive.MonitorToDMX.props
 C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\staticwebassets.pack.json
 C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\compressed\publish\kxzvcqaklw-e5tk7yf482.br
-C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\compressed\publish\vyjsv2c10r-5vkj2841g2.br
 C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\compressed\publish\yep25vogvo-qlthuwo0im.br
 C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\compressed\publish\853tu0zcw1-qlthuwo0im.br
 C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\staticwebassets.publish.json
@@ -577,3 +575,10 @@ C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\obj\Debug\net9.0-win
 C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\qualifiers.txt.intermediate
 C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\MultipleQualifiersPerDimensionFound.txt
 C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\staticwebassets.upToDateCheck.txt
+C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\wwwroot\js\site.js.br
+C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\wwwroot\js\site.js.gz
+C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\wwwroot\js\site.js
+C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\compressed\x931mj369f-5dk293w536.gz
+C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\compressed\publish\x931mj369f-5dk293w536.br
+C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\compressed\vyjsv2c10r-gzkfl2v905.gz
+C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\compressed\publish\vyjsv2c10r-gzkfl2v905.br

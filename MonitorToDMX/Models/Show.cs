@@ -30,4 +30,22 @@
             ShowList = showList ?? new List<Fixture>();
         }
     }
+
+    public class FixtureConfig
+    {
+        public string Name { get; set; }
+        public string Type { get; set; }
+        public int StartingAddress { get; set; }
+        public PositionConfig? Position { get; set; } // nullable for global fixtures
+    }
+
+    public class PositionConfig
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+    }
+    public class ShowConfig
+    {
+        public List<FixtureConfig> Fixtures { get; set; }
+    }
 }

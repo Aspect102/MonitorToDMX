@@ -32,13 +32,33 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>5vkj2841g2</Fingerprint>
-      <Integrity>ny2Hb5lylefePC0Y8iAHSj4G0pACiu1TfodiEul8yqc=</Integrity>
+      <Fingerprint>gzkfl2v905</Fingerprint>
+      <Integrity>/MRB2xxCbMtkW8rGrN1u9GR7/2BenKugh4uuZ6/UuJA=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <FileLength>787</FileLength>
-      <LastWriteTime>Wed, 22 Oct 2025 15:26:44 GMT</LastWriteTime>
+      <FileLength>827</FileLength>
+      <LastWriteTime>Thu, 23 Oct 2025 00:43:47 GMT</LastWriteTime>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\index.html'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))">
+      <SourceType>Package</SourceType>
+      <SourceId>MonitorToDMX</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>/</BasePath>
+      <RelativePath>js/site.js</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>5dk293w536</Fingerprint>
+      <Integrity>mahcjYPS3Dh/o+CLJPdLajaujcBYgXAhUrBSQCakYzc=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <FileLength>217</FileLength>
+      <LastWriteTime>Thu, 23 Oct 2025 00:40:51 GMT</LastWriteTime>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\MonitorToDMX.styles.css'))">
       <SourceType>Package</SourceType>

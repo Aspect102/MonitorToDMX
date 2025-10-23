@@ -4,8 +4,10 @@ wwwroot\css\app.css.gz
 wwwroot\MonitorToDMX.qlthuwo0im.bundle.scp.css.br
 wwwroot\css\app.css.br
 wwwroot\index.html.br
+wwwroot\js\site.js.br
 wwwroot\MonitorToDMX.styles.css.br
 wwwroot\index.html.gz
+wwwroot\js\site.js.gz
 wwwroot\MonitorToDMX.styles.css.gz
 OpenSans-Regular.ttf
 appicon.ico
@@ -69,3 +71,4 @@ wwwroot\MonitorToDMX.qlthuwo0im.bundle.scp.css
 AboutAssets.txt
 wwwroot\css\app.css
 wwwroot\index.html
+wwwroot\js\site.js

@@ -21,11 +21,56 @@
             Partitioned
         }
 
-        public static List<Fixture> Fixtures = new();
+        public static List<Fixture> Fixtures { get; } = new()
+{
+    new Fixture("Fresnel V", new Dictionary<Fixture.FixtureMode, int>
+    {
+        { Fixture.FixtureMode.Intensity, 0 },
+        { Fixture.FixtureMode.Red, 1 },
+        { Fixture.FixtureMode.Green, 2 },
+        { Fixture.FixtureMode.Blue, 3 },
+        { Fixture.FixtureMode.Indigo, 4 },
+        { Fixture.FixtureMode.Lime, 5 },
+        { Fixture.FixtureMode.Strobe, 6 },
+        { Fixture.FixtureMode.Zoom, 7 },
+        { Fixture.FixtureMode.Fan, 8 },
+    }, Fixture.ColourMode.Partitioned),
+
+    new Fixture("PAR", new Dictionary<Fixture.FixtureMode, int>
+    {
+        { Fixture.FixtureMode.Intensity, 0 },
+        { Fixture.FixtureMode.Red, 1 },
+        { Fixture.FixtureMode.Green, 2 },
+        { Fixture.FixtureMode.Blue, 3 },
+        { Fixture.FixtureMode.Strobe, 4 },
+    }, Fixture.ColourMode.Global),
+
+    new Fixture("UKing", new Dictionary<Fixture.FixtureMode, int>
+    {
+        { Fixture.FixtureMode.Intensity, 0 },
+        { Fixture.FixtureMode.Red, 1 },
+        { Fixture.FixtureMode.Green, 2 },
+        { Fixture.FixtureMode.Blue, 3 },
+        { Fixture.FixtureMode.Strobe, 4 },
+    }, Fixture.ColourMode.Partitioned)
+};
+
 
         public (int? x, int? y) Position { get; set; }
 
-        public int StartingAddress { get; set; }
+
+        private int _startingAddress = 1;
+        public int StartingAddress
+        {
+            get => _startingAddress;
+            set
+            {
+                if (value < 1 || value > 512)
+                    throw new ArgumentOutOfRangeException(nameof(StartingAddress), "StartingAddress must be between 1 and 512");
+
+                _startingAddress = value;
+            }
+        }
 
         public string Name { get; set; }
 

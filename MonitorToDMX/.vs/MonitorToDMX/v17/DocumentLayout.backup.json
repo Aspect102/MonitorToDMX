@@ -3,28 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|c:\\users\\zacgr\\onedrive\\documents\\monitortodmx\\monitortodmx\\services\\dmxservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|solutionrelative:services\\dmxservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|c:\\users\\zacgr\\onedrive\\documents\\monitortodmx\\monitortodmx\\components\\pages\\monitor.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|solutionrelative:components\\pages\\monitor.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|c:\\users\\zacgr\\onedrive\\documents\\monitortodmx\\monitortodmx\\models\\show.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|solutionrelative:models\\show.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|c:\\users\\zacgr\\onedrive\\documents\\monitortodmx\\monitortodmx\\models\\fixture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|solutionrelative:models\\fixture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|c:\\users\\zacgr\\onedrive\\documents\\monitortodmx\\monitortodmx\\services\\dmxservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|solutionrelative:services\\dmxservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|c:\\users\\zacgr\\onedrive\\documents\\monitortodmx\\monitortodmx\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|solutionrelative:components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|c:\\users\\zacgr\\onedrive\\documents\\monitortodmx\\monitortodmx\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|solutionrelative:components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|c:\\users\\zacgr\\onedrive\\documents\\monitortodmx\\monitortodmx\\models\\show.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E700D0D5-4646-4B33-B6DB-FA3243DAC5F8}|MonitorToDMX.csproj|solutionrelative:models\\show.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,29 +42,40 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
+              "Title": "Monitor.razor",
+              "DocumentMoniker": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Components\\Pages\\Monitor.razor",
+              "RelativeDocumentMoniker": "Components\\Pages\\Monitor.razor",
+              "ToolTip": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Components\\Pages\\Monitor.razor",
+              "RelativeToolTip": "Components\\Pages\\Monitor.razor",
+              "ViewState": "AgIAALUAAAAAAAAAAADwv9EAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-23T00:48:39.148Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Show.cs",
               "DocumentMoniker": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Models\\Show.cs",
               "RelativeDocumentMoniker": "Models\\Show.cs",
               "ToolTip": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Models\\Show.cs",
               "RelativeToolTip": "Models\\Show.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAA5wCEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAwwCgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-22T17:36:53.83Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-22T17:36:53.83Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Fixture.cs",
               "DocumentMoniker": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Models\\Fixture.cs",
               "RelativeDocumentMoniker": "Models\\Fixture.cs",
               "ToolTip": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Models\\Fixture.cs",
               "RelativeToolTip": "Models\\Fixture.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAAhwCYAAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAABcAAAAAAAAAAIA2wEQAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-22T17:36:53.008Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-22T17:36:53.008Z"
             },
             {
               "$type": "Document",
@@ -78,48 +85,21 @@
               "RelativeDocumentMoniker": "Components\\Layout\\MainLayout.razor",
               "ToolTip": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Components\\Layout\\MainLayout.razor",
               "RelativeToolTip": "Components\\Layout\\MainLayout.razor",
-              "ViewState": "AgIAACoAAAAAAAAAAAAcwDQAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-22T16:56:26.693Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-22T16:56:26.693Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "DMXService.cs",
               "DocumentMoniker": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Services\\DMXService.cs",
               "RelativeDocumentMoniker": "Services\\DMXService.cs",
               "ToolTip": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Services\\DMXService.cs",
               "RelativeToolTip": "Services\\DMXService.cs",
-              "ViewState": "AgIAANIAAAAAAAAAAAAmwLwAAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAAPwAAAAAAAAAAAAswAMBAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-22T16:47:36.651Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Home.razor",
-              "DocumentMoniker": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Components\\Pages\\Home.razor",
-              "RelativeDocumentMoniker": "Components\\Pages\\Home.razor",
-              "ToolTip": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Components\\Pages\\Home.razor",
-              "RelativeToolTip": "Components\\Pages\\Home.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-22T16:41:22.211Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Monitor.razor",
-              "DocumentMoniker": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Components\\Pages\\Monitor.razor",
-              "RelativeDocumentMoniker": "Components\\Pages\\Monitor.razor",
-              "ToolTip": "C:\\Users\\zacgr\\OneDrive\\Documents\\MonitorToDMX\\MonitorToDMX\\Components\\Pages\\Monitor.razor",
-              "RelativeToolTip": "Components\\Pages\\Monitor.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-22T16:40:32.684Z",
               "EditorCaption": ""
             }
           ]

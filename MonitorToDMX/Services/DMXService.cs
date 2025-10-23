@@ -6,6 +6,7 @@ using MonitorToDMX.Models;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Text.Json;
 using static MonitorToDMX.Models.Fixture; // Add this for MainThread
 
 namespace MonitorToDMX.Services
@@ -14,15 +15,35 @@ namespace MonitorToDMX.Services
     {
         private static DmxTimer dmxTimer = new DmxTimer();
         private static IController dmxController = ControllerManager.RegisterController<OpenDmxController>(1, dmxTimer);
-        private static int cols = 4;
-        private static int rows = 3;
-        private static int partitionAmount = cols * rows;
         private static bool debugMode = false;
         private static int sens = 0; // sensitivity threshold (0-255)
         private static CancellationTokenSource dmxCancel;
+        
+        public static int PartitionAmount;
 
         public static Show show = new Show();
 
+        public static int Rows
+        {
+            get => _rows;
+            set
+            {
+                _rows = value > 0 ? value : 1;
+                PartitionAmount = Rows * Columns;
+            }
+        }
+        private static int _rows = 3;
+
+        public static int Columns
+        {
+            get => _columns;
+            set
+            {
+                _columns = value > 0 ? value : 1;
+                PartitionAmount = Rows * Columns;
+            }
+        }
+        private static int _columns = 4;
 
         //static void Maind(string[] args)
         //{
@@ -49,16 +70,16 @@ namespace MonitorToDMX.Services
 
 
 
-        
-//}
 
-//public static void WriteGlobalColour(byte r, byte g, byte b)
-//{
-//    dmxTimer.Start();
-//    byte[] pattern = [255, r, g, b, 0, 0, 0, 0, 0]; // 9 channels
-//    byte[] result = Enumerable.Repeat(pattern, 12).SelectMany(x => x).ToArray();
-//    dmxController.SetChannelRange(1, result);
-//}
+        //}
+
+        //public static void WriteGlobalColour(byte r, byte g, byte b)
+        //{
+        //    dmxTimer.Start();
+        //    byte[] pattern = [255, r, g, b, 0, 0, 0, 0, 0]; // 9 channels
+        //    byte[] result = Enumerable.Repeat(pattern, 12).SelectMany(x => x).ToArray();
+        //    dmxController.SetChannelRange(1, result);
+        //}
 
         public static void StartDmxLoop()
         {
@@ -113,19 +134,19 @@ namespace MonitorToDMX.Services
 
         static byte[] ComputeDmxBuffer(Bitmap bmp, Show show)
         {
-            int partWidth = bmp.Width / cols;
-            int partHeight = bmp.Height / rows;
+            int partWidth = bmp.Width / Columns;
+            int partHeight = bmp.Height / Rows;
 
             // Precompute regions
             Dictionary<(int col, int row), Rectangle> regionMap = new();
-            for (int i = 0; i < partitionAmount; i++)
+            for (int i = 0; i < PartitionAmount; i++)
             {
-                int row = i / cols;
-                int col = i % cols;
+                int row = i / Columns;
+                int col = i % Columns;
                 int x = col * partWidth;
                 int y = row * partHeight;
-                int width = (col == cols - 1) ? bmp.Width - x : partWidth;
-                int height = (row == rows - 1) ? bmp.Height - y : partHeight;
+                int width = (col == Columns - 1) ? bmp.Width - x : partWidth;
+                int height = (row == Rows - 1) ? bmp.Height - y : partHeight;
                 regionMap[(col, row)] = new Rectangle(x, y, width, height);
             }
 
@@ -252,7 +273,29 @@ namespace MonitorToDMX.Services
             return dmxValues;
         }
 
+        public static async Task LoadShowConfigAsync(string filePath)
+        {
+            if (!File.Exists(filePath))
+                throw new FileNotFoundException("Config file not found", filePath);
 
+            string json = await File.ReadAllTextAsync(filePath);
+            var config = JsonSerializer.Deserialize<ShowConfig>(json);
+
+            if (config == null) return;
+
+            show.ShowList.Clear();
+
+            foreach (var fc in config.Fixtures)
+            {
+                var fixtureTemplate = Fixture.Fixtures.FirstOrDefault(f => f.Name == fc.Name);
+                if (fixtureTemplate != null)
+                {
+                    int x = fc.Position?.X ?? 0;
+                    int y = fc.Position?.Y ?? 0;
+                    show.AddLightFromExisting(fixtureTemplate, fc.StartingAddress, x, y);
+                }
+            }
+        }
 
     }
 }
