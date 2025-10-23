@@ -1,7 +1,7 @@
 # MonitorToDMX
-![img2](https://github.com/user-attachments/assets/a3dead1a-d7de-4ec1-96c4-02eab099f9db)
-<img src="[https://github.com/favicon.ico](https://github.com/user-attachments/assets/36dfe587-3a8b-42df-a76e-3705c492e427)" width="1512" height="2016">
-<img src="[https://github.com/favicon.ico](https://github.com/user-attachments/assets/36dfe587-3a8b-42df-a76e-3705c492e427)" width="2016" height="1512">
+![img2]()
+<img src="https://github.com/user-attachments/assets/36dfe587-3a8b-42df-a76e-3705c492e427" width="1512" height="2016">
+<img src="https://github.com/user-attachments/assets/a3dead1a-d7de-4ec1-96c4-02eab099f9db" width="2016" height="1512">
 MonitorToDMX is a Blazor Hybrid web-app that outputs lighting data through a DSD TECH SH-RS09B USB-to-DMX interface. It replicates on-screen colour by assigning light fixtures to the average colour of defined screen partitions, or using a global average colour for the entire display.
 
 This program was initially built for my own setup of cheap UKing fixtures, later evolving into a C# Console app for the light fixtures in the ALT (Edge) Theatre of the University of Bath.
