@@ -5,4 +5,6 @@ This program was initially built for my own setup of cheap UKing fixtures, later
 
 <img src="https://github.com/user-attachments/assets/36dfe587-3a8b-42df-a76e-3705c492e427" width="756" height="1008">
 <img src="https://github.com/user-attachments/assets/a3dead1a-d7de-4ec1-96c4-02eab099f9db" width="1008" height="756">
-https://github.com/user-attachments/assets/9918a20b-42a0-43b1-91b6-1a79b3edd99e
+
+https://github.com/user-attachments/assets/fe73c314-1984-4376-9b00-0d3b86d3cca9
+
