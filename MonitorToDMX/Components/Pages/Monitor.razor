@@ -72,23 +72,6 @@
                 </td>
             </tr>
         }
-        <div class="mb-3">
-            <InputFile OnChange="LoadConfig" />
-        </div>
-
-        <div class="mb-3">
-            <button class="btn btn-success" @onclick="SaveConfig">Save Show to Config</button>
-        </div>
-
-        <div class="mb-3">
-            <label>Rows: </label>
-            <input type="number" min="1" max="64" @bind="DMXService.Rows" />
-        </div>
-
-        <div class="mb-3">
-            <label>Columns: </label>
-            <input type="number" min="1" max="64" @bind="DMXService.Columns" />
-        </div>
         @* <h3>Screen Partition Preview</h3>
 
         <div class="screen-preview" style="position: relative; width: 720px; height: 360px; border: 2px solid black;">
@@ -121,6 +104,31 @@
         </div> *@
     </tbody>
 </table>
+<div class="form-check mb-3">
+    <input class="form-check-input"
+           type="checkbox"
+           id="audioReactiveToggle"
+           @bind="DMXService.UseAudioReactiveMode" />
+    <label class="form-check-label" for="audioReactiveToggle">
+        Audio Reactive Mode
+    </label>
+</div>
+<div class="mb-3">
+    <label>Rows: </label>
+    <input type="number" min="1" max="64" @bind="DMXService.Rows" />
+</div>
+
+<div class="mb-3">
+    <label>Columns: </label>
+    <input type="number" min="1" max="64" @bind="DMXService.Columns" />
+</div>
+<div class="mb-3">
+    <InputFile OnChange="LoadConfig" />
+</div>
+
+<div class="mb-3">
+    <button class="btn btn-success" @onclick="SaveConfig">Save Show to Config</button>
+</div>
 
 @code {
     private string selectedFixtureName;
@@ -184,7 +192,6 @@
 
     private async Task SaveConfig()
     {
-        // Prepare the config object
         var config = new ShowConfig
         {
             Fixtures = DMXService.show.ShowList.Select(f => new FixtureConfig

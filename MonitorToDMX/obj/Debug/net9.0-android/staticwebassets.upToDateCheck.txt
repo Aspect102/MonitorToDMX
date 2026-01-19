@@ -1,6 +1,0 @@
-wwwroot\css\app.css
-wwwroot\index.html
-wwwroot\js\site.js
-C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\wwwroot\css\app.css
-C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\wwwroot\index.html
-C:\Users\zacgr\OneDrive\Documents\MonitorToDMX\MonitorToDMX\wwwroot\js\site.js

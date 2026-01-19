@@ -3,6 +3,7 @@ using Dmx.Net.Controllers;
 using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Devices;
 using MonitorToDMX.Models;
+using NAudio.Wave;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -18,7 +19,27 @@ namespace MonitorToDMX.Services
         private static bool debugMode = false;
         private static int sens = 0; // sensitivity threshold (0-255)
         private static CancellationTokenSource dmxCancel;
-        
+
+        // --- NEW: Gamma Correction Lookup Table ---
+        private static readonly byte[] GammaLUT = new byte[] {
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2,
+            2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5,
+            5, 5, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9, 10, 10,
+            11, 11, 11, 12, 12, 13, 13, 13, 14, 14, 15, 15, 16, 16, 17, 17,
+            18, 18, 19, 19, 20, 20, 21, 22, 22, 23, 23, 24, 25, 25, 26, 27,
+            27, 28, 29, 29, 30, 31, 32, 32, 33, 34, 35, 35, 36, 37, 38, 39,
+            40, 41, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54,
+            55, 56, 57, 58, 59, 60, 61, 62, 63, 65, 66, 67, 68, 69, 70, 71,
+            73, 74, 75, 76, 77, 79, 80, 81, 82, 84, 85, 86, 88, 89, 90, 92,
+            93, 94, 96, 97, 99, 100, 101, 103, 104, 106, 107, 109, 110, 112, 113, 115,
+            116, 118, 119, 121, 122, 124, 126, 127, 129, 131, 132, 134, 136, 137, 139, 141,
+            143, 144, 146, 148, 150, 152, 153, 155, 157, 159, 161, 163, 165, 166, 168, 170,
+            172, 174, 176, 178, 180, 182, 184, 186, 188, 191, 193, 195, 197, 199, 201, 203,
+            206, 208, 210, 212, 215, 217, 219, 221, 224, 226, 228, 231, 233, 235, 238, 240,
+            243, 245, 248, 250, 253, 255
+        };
+
         public static int PartitionAmount;
 
         public static Show show = new Show();
@@ -44,6 +65,10 @@ namespace MonitorToDMX.Services
             }
         }
         private static int _columns = 4;
+
+        private static WasapiLoopbackCapture? loopback;
+        private static float currentAudioLevel;
+        public static bool UseAudioReactiveMode { get; set; } = false;
 
         //static void Maind(string[] args)
         //{
@@ -88,6 +113,9 @@ namespace MonitorToDMX.Services
 
             dmxCancel = new CancellationTokenSource();
 
+            if (UseAudioReactiveMode)
+                StartAudioCapture();
+
             Task.Run(async () =>
             {
                 var token = dmxCancel.Token;
@@ -115,6 +143,8 @@ namespace MonitorToDMX.Services
             dmxTimer.Stop();
             dmxController.SetChannelRange(1, new byte[511]); // reset all channels
             dmxController.WriteBuffer().Wait(); // flush
+            if (UseAudioReactiveMode)
+                StopAudioCapture();
         }
 
         static string AverageToString(byte[] averages) => string.Join(",", averages);
@@ -134,6 +164,7 @@ namespace MonitorToDMX.Services
 
         static byte[] ComputeDmxBuffer(Bitmap bmp, Show show)
         {
+            PartitionAmount = Rows * Columns;
             int partWidth = bmp.Width / Columns;
             int partHeight = bmp.Height / Rows;
 
@@ -181,9 +212,11 @@ namespace MonitorToDMX.Services
 
                         for (int x = 0; x < rect.Width; x++)
                         {
-                            rowSumB += p[0];
-                            rowSumG += p[1];
-                            rowSumR += p[2];
+                            // p[0] is Blue, p[1] is Green, p[2] is Red
+                            // We convert to linear BEFORE adding
+                            rowSumB += GammaLUT[p[0]];
+                            rowSumG += GammaLUT[p[1]];
+                            rowSumR += GammaLUT[p[2]];
                             p += 3;
                         }
                         Interlocked.Add(ref localSumR, rowSumR);
@@ -233,15 +266,57 @@ namespace MonitorToDMX.Services
                     }
 
                     byte r = 0, g = 0, b = 0, intensity = 0;
+
+                    static double sRGBtoLin(double colorChannel)
+                    {
+                        if (colorChannel <= 0.04045)
+                        {
+                            return colorChannel / 12.92;
+                        }
+                        else
+                        {
+                            return Math.Pow(((colorChannel + 0.055) / 1.055), 2.4);
+                        }
+                    }
+
+                    static double YtoLstar(double Y)
+                    {
+                        // Send this function a luminance value between 0.0 and 1.0,
+                        // and it returns L* which is "perceptual lightness"
+
+                        if (Y <= ((double)216 / 24389))
+                        {       // The CIE standard states 0.008856 but 216/24389 is the intent for 0.008856451679036
+                            return Y * ((double)24389 / 27);  // The CIE standard states 903.3, but 24389/27 is the intent, making 903.296296296296296
+                        }
+                        else
+                        {
+                            return Math.Pow(Y, (1 / 3)) * 116 - 16;
+                        }
+                    }
+
                     if (pixelCount > 0)
                     {
+                        // --- CHANGED: Simplified Averaging ---
+                        // We summed Linear values, so simple average is correct.
                         r = (byte)(sumR / pixelCount);
                         g = (byte)(sumG / pixelCount);
                         b = (byte)(sumB / pixelCount);
-                        intensity = (byte)Math.Max(r, Math.Max(g, b));
+
+                        if (UseAudioReactiveMode)
+                        {
+                            intensity = GetAudioIntensity();
+                        }
+                        else
+                        {
+                            // Better logic for non-audio mode:
+                            // Use the brightest color as intensity (so black screen = lights off)
+                            intensity = (byte)Math.Max(r, Math.Max(g, b));
+                            // intensity = 255; 
+                        }
                     }
-                    var indigo = (byte)Math.Min(255, r * 0.1 + b * 0.5);
-                    var lime = (byte)Math.Min(255, r * 0.1 + g * 0.9 + b * 0.1);
+
+                    var indigo = (byte)Math.Min(255, r * 0.2 + b * 1.0);
+                    var lime = (byte)Math.Min(255, r * 0.5 + g * 0.8 + b * 0.1);
 
                     // Map fixture modes to values
                     var channelValues = new Dictionary<FixtureMode, byte>
@@ -297,6 +372,46 @@ namespace MonitorToDMX.Services
             }
         }
 
+        public static void StartAudioCapture()
+        {
+            if (loopback != null)
+                return;
+
+            loopback = new WasapiLoopbackCapture();
+            loopback.DataAvailable += (s, e) =>
+            {
+                int samples = e.BytesRecorded / 4;
+                float sumSquares = 0;
+
+                for (int i = 0; i < e.BytesRecorded; i += 4)
+                {
+                    float sample = BitConverter.ToSingle(e.Buffer, i);
+                    sumSquares += sample * sample;
+                }
+
+                float rms = (float)Math.Sqrt(sumSquares / samples);
+
+                // Scale RMS to a 0-1 range suitable for DMX intensity
+                currentAudioLevel = rms; // do NOT multiply by 6f here!
+            };
+
+
+            loopback.StartRecording();
+        }
+
+        public static void StopAudioCapture()
+        {
+            loopback?.StopRecording();
+            loopback?.Dispose();
+            loopback = null;
+            currentAudioLevel = 0;
+        }
+
+        public static byte GetAudioIntensity()
+        {
+            // Amplify gently
+            return (byte)Math.Clamp(currentAudioLevel * 255f * 2f, 0, 255);
+        }
     }
 }
 
