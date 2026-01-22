@@ -46,6 +46,13 @@
     }
     public class ShowConfig
     {
+        public int Rows { get; set; } = 3;
+        public int Columns { get; set; } = 4;
+        public byte GlobalZoom { get; set; }
+        public double Gamma { get; set; } = 1.0;
+        public double Saturation { get; set; } = 1.0;
+        public bool AudioReactive { get; set; }
+        public double ColorRadius { get; set; } = 150.0;
         public List<FixtureConfig> Fixtures { get; set; }
     }
 }

@@ -1,14 +1,11 @@
 ﻿using Dmx.Net.Common;
 using Dmx.Net.Controllers;
-using Microsoft.Maui.ApplicationModel;
-using Microsoft.Maui.Devices;
 using MonitorToDMX.Models;
 using NAudio.Wave;
-using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Text.Json;
-using static MonitorToDMX.Models.Fixture; // Add this for MainThread
+using static MonitorToDMX.Models.Fixture;
 
 namespace MonitorToDMX.Services
 {
@@ -19,26 +16,27 @@ namespace MonitorToDMX.Services
         private static bool debugMode = false;
         private static int sens = 0; // sensitivity threshold (0-255)
         private static CancellationTokenSource dmxCancel;
+        public static byte FixedZoomLevel { get; set; } = 0;
 
-        // --- NEW: Gamma Correction Lookup Table ---
-        private static readonly byte[] GammaLUT = new byte[] {
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2,
-            2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5,
-            5, 5, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9, 10, 10,
-            11, 11, 11, 12, 12, 13, 13, 13, 14, 14, 15, 15, 16, 16, 17, 17,
-            18, 18, 19, 19, 20, 20, 21, 22, 22, 23, 23, 24, 25, 25, 26, 27,
-            27, 28, 29, 29, 30, 31, 32, 32, 33, 34, 35, 35, 36, 37, 38, 39,
-            40, 41, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54,
-            55, 56, 57, 58, 59, 60, 61, 62, 63, 65, 66, 67, 68, 69, 70, 71,
-            73, 74, 75, 76, 77, 79, 80, 81, 82, 84, 85, 86, 88, 89, 90, 92,
-            93, 94, 96, 97, 99, 100, 101, 103, 104, 106, 107, 109, 110, 112, 113, 115,
-            116, 118, 119, 121, 122, 124, 126, 127, 129, 131, 132, 134, 136, 137, 139, 141,
-            143, 144, 146, 148, 150, 152, 153, 155, 157, 159, 161, 163, 165, 166, 168, 170,
-            172, 174, 176, 178, 180, 182, 184, 186, 188, 191, 193, 195, 197, 199, 201, 203,
-            206, 208, 210, 212, 215, 217, 219, 221, 224, 226, 228, 231, 233, 235, 238, 240,
-            243, 245, 248, 250, 253, 255
-        };
+        // 1.0 = Normal, 0.0 = Grey, 2.0 = Vibrant
+        public static double SaturationBoost { get; set; } = 1.0;
+        private static byte[] GammaLUT = new byte[256];
+        public static double ColorMatchRadius { get; set; } = 150.0; // Default "Medium" strictness
+
+        public static void InitializeGamma()
+        {
+            for (int i = 0; i < 256; i++)
+            {
+                // Normalize i to 0.0 - 1.0
+                double normalized = i / 255.0;
+
+                double corrected = Math.Pow(normalized, GammaValue);
+
+                // Scale back to 0-255
+                GammaLUT[i] = (byte)(corrected * 255.0);
+            }
+        }
+
 
         public static int PartitionAmount;
 
@@ -65,6 +63,19 @@ namespace MonitorToDMX.Services
             }
         }
         private static int _columns = 4;
+
+        private static double _gammaValue = 1.0;
+
+        public static double GammaValue
+        {
+            get => _gammaValue;
+            set
+            {
+                _gammaValue = Math.Clamp(value, 0.1, 5.0);
+
+                InitializeGamma();
+            }
+        }
 
         private static WasapiLoopbackCapture? loopback;
         private static float currentAudioLevel;
@@ -116,6 +127,8 @@ namespace MonitorToDMX.Services
             if (UseAudioReactiveMode)
                 StartAudioCapture();
 
+            InitializeGamma();
+
             Task.Run(async () =>
             {
                 var token = dmxCancel.Token;
@@ -149,6 +162,22 @@ namespace MonitorToDMX.Services
 
         static string AverageToString(byte[] averages) => string.Join(",", averages);
 
+        private static void ApplySaturation(ref byte r, ref byte g, ref byte b, double saturation)
+        {
+            // Calculate luminance (perceived brightness)
+            // Or simple average: double avg = (r + g + b) / 3.0;
+            double gray = r * 0.299 + g * 0.587 + b * 0.114;
+
+            // Interpolate between the gray value and the color value
+            double newR = gray + (r - gray) * saturation;
+            double newG = gray + (g - gray) * saturation;
+            double newB = gray + (b - gray) * saturation;
+
+            r = (byte)Math.Clamp(newR, 0, 255);
+            g = (byte)Math.Clamp(newG, 0, 255);
+            b = (byte)Math.Clamp(newB, 0, 255);
+        }
+
         static async Task<Bitmap> CaptureScreenAsync()
         {
             DisplayInfo displayInfo = await MainThread.InvokeOnMainThreadAsync(() => DeviceDisplay.MainDisplayInfo);
@@ -168,7 +197,6 @@ namespace MonitorToDMX.Services
             int partWidth = bmp.Width / Columns;
             int partHeight = bmp.Height / Rows;
 
-            // Precompute regions
             Dictionary<(int col, int row), Rectangle> regionMap = new();
             for (int i = 0; i < PartitionAmount; i++)
             {
@@ -212,11 +240,9 @@ namespace MonitorToDMX.Services
 
                         for (int x = 0; x < rect.Width; x++)
                         {
-                            // p[0] is Blue, p[1] is Green, p[2] is Red
-                            // We convert to linear BEFORE adding
-                            rowSumB += GammaLUT[p[0]];
-                            rowSumG += GammaLUT[p[1]];
-                            rowSumR += GammaLUT[p[2]];
+                            rowSumB += p[0];
+                            rowSumG += p[1];
+                            rowSumR += p[2];
                             p += 3;
                         }
                         Interlocked.Add(ref localSumR, rowSumR);
@@ -267,40 +293,20 @@ namespace MonitorToDMX.Services
 
                     byte r = 0, g = 0, b = 0, intensity = 0;
 
-                    static double sRGBtoLin(double colorChannel)
-                    {
-                        if (colorChannel <= 0.04045)
-                        {
-                            return colorChannel / 12.92;
-                        }
-                        else
-                        {
-                            return Math.Pow(((colorChannel + 0.055) / 1.055), 2.4);
-                        }
-                    }
-
-                    static double YtoLstar(double Y)
-                    {
-                        // Send this function a luminance value between 0.0 and 1.0,
-                        // and it returns L* which is "perceptual lightness"
-
-                        if (Y <= ((double)216 / 24389))
-                        {       // The CIE standard states 0.008856 but 216/24389 is the intent for 0.008856451679036
-                            return Y * ((double)24389 / 27);  // The CIE standard states 903.3, but 24389/27 is the intent, making 903.296296296296296
-                        }
-                        else
-                        {
-                            return Math.Pow(Y, (1 / 3)) * 116 - 16;
-                        }
-                    }
-
                     if (pixelCount > 0)
                     {
-                        // --- CHANGED: Simplified Averaging ---
-                        // We summed Linear values, so simple average is correct.
                         r = (byte)(sumR / pixelCount);
                         g = (byte)(sumG / pixelCount);
                         b = (byte)(sumB / pixelCount);
+
+                        if (SaturationBoost != 1.0)
+                        {
+                            ApplySaturation(ref r, ref g, ref b, SaturationBoost);
+                        }
+
+                        r = GammaLUT[r];
+                        g = GammaLUT[g];
+                        b = GammaLUT[b];
 
                         if (UseAudioReactiveMode)
                         {
@@ -308,15 +314,35 @@ namespace MonitorToDMX.Services
                         }
                         else
                         {
-                            // Better logic for non-audio mode:
-                            // Use the brightest color as intensity (so black screen = lights off)
                             intensity = (byte)Math.Max(r, Math.Max(g, b));
-                            // intensity = 255; 
                         }
                     }
 
-                    var indigo = (byte)Math.Min(255, r * 0.2 + b * 1.0);
-                    var lime = (byte)Math.Min(255, r * 0.5 + g * 0.8 + b * 0.1);
+                    (byte r, byte g, byte b) trueLime = (191, 255, 0);
+                    (byte r, byte g, byte b) trueIndigo = (75, 0, 130);
+                    
+                    //byte trueLimeAvg = (byte)((trueLime.Item1 + trueLime.Item2 + trueLime.Item3) / 3);
+                    //byte trueIndigoAvg = (byte)((trueIndigo.Item1 + trueIndigo.Item2 + trueIndigo.Item3) / 3);
+                    //byte indigo = (byte)(Math.Abs((r - trueIndigo.Item1) + (g - trueIndigo.Item2) + (b - trueIndigo.Item3)) / 3) / (trueIndigoAvg);
+                    //byte lime = (byte)(Math.Abs((r - trueLime.Item1) + (g - trueLime.Item2) + (b - trueLime.Item3))/3) / (trueLimeAvg);
+
+                    double distIndigo = Math.Sqrt(Math.Pow(r - trueIndigo.r, 2) +
+                                  Math.Pow(g - trueIndigo.g, 2) +
+                                  Math.Pow(b - trueIndigo.b, 2));
+
+                    double distLime = Math.Sqrt(Math.Pow(r - trueLime.r, 2) +
+                                                Math.Pow(g - trueLime.g, 2) +
+                                                Math.Pow(b - trueLime.b, 2));
+
+                    // 255.0 means it fades out over the whole color space.
+                    // 100.0 means it only lights up if the color is VERY close.
+                    double radius = 100;
+
+                    double indigoFactor = Math.Max(0, 1.0 - (distIndigo / radius));
+                    double limeFactor = Math.Max(0, 1.0 - (distLime / radius));
+
+                    byte indigo = (byte)(indigoFactor * 255);
+                    byte lime = (byte)(limeFactor * 255);
 
                     // Map fixture modes to values
                     var channelValues = new Dictionary<FixtureMode, byte>
@@ -326,10 +352,10 @@ namespace MonitorToDMX.Services
                         { FixtureMode.Green, g },
                         { FixtureMode.Blue, b },
                         { FixtureMode.Indigo, indigo },
-                        { FixtureMode.Lime, lime }
+                        { FixtureMode.Lime, lime },
+                        { FixtureMode.Zoom, FixedZoomLevel },
                     };
 
-                    // Assign DMX values based on the mapping
                     foreach (var kvp in fixture.ChannelMapping)
                     {
                         int dmxIndex = fixture.StartingAddress - 1 + kvp.Value;
@@ -356,7 +382,16 @@ namespace MonitorToDMX.Services
             string json = await File.ReadAllTextAsync(filePath);
             var config = JsonSerializer.Deserialize<ShowConfig>(json);
 
-            if (config == null) return;
+            if (config == null) return; 
+            if (config.Rows > 0) Rows = config.Rows;
+            if (config.Columns > 0) Columns = config.Columns;
+
+            FixedZoomLevel = config.GlobalZoom;
+
+            GammaValue = config.Gamma > 0 ? config.Gamma : 1.0;
+            SaturationBoost = config.Saturation;
+            UseAudioReactiveMode = config.AudioReactive;
+            ColorMatchRadius = config.ColorRadius > 0 ? config.ColorRadius : 150.0;
 
             show.ShowList.Clear();
 
@@ -392,7 +427,7 @@ namespace MonitorToDMX.Services
                 float rms = (float)Math.Sqrt(sumSquares / samples);
 
                 // Scale RMS to a 0-1 range suitable for DMX intensity
-                currentAudioLevel = rms; // do NOT multiply by 6f here!
+                currentAudioLevel = rms;
             };
 
 
